@@ -1,0 +1,378 @@
+[
+    {
+        "id" : "1",
+        "icon" : "meat",
+        "category" : "육류/달걀",
+        "ingredient" : "소고기",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "2",
+        "icon" : "meat",
+        "category" : "육류/달걀",
+        "ingredient" : "돼지고기",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "3",
+        "icon" : "chicken",
+        "category" : "육류/달걀",
+        "ingredient" : "닭가슴살",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "4",
+        "icon" : "avocardo",
+        "category" : "채소",
+        "ingredient" : "아보카도",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "5",
+        "icon" : "bacon",
+        "category" : "육류/달걀",
+        "ingredient" : "베이컨",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "6",
+        "icon" : "bellPepper",
+        "category" : "채소",
+        "ingredient" : "피망",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "7",
+        "icon" : "butter",
+        "category" : "오일류",
+        "ingredient" : "버터",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "8",
+        "icon" : "cheeze",
+        "category" : "유제품",
+        "ingredient" : "치즈",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "9",
+        "icon" : "chiliPowder",
+        "category" : "조미료/양념",
+        "ingredient" : "고춧가루",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "10",
+        "icon" : "chineseCabbage",
+        "category" : "채소",
+        "ingredient" : "배추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "11",
+        "icon" : "corn",
+        "category" : "채소",
+        "ingredient" : "옥수수",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "12",
+        "icon" : "daepa",
+        "category" : "채소",
+        "ingredient" : "대파",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "13",
+        "icon" : "egg",
+        "category" : "육류/달걀",
+        "ingredient" : "달걀",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "14",
+        "icon" : "eggplant",
+        "category" : "채소",
+        "ingredient" : "가지",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "15",
+        "icon" : "flour",
+        "category" : "가루류",
+        "ingredient" : "밀가루",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "16",
+        "icon" : "garlic",
+        "category" : "채소",
+        "ingredient" : "마늘",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "17",
+        "icon" : "garlic",
+        "category" : "채소",
+        "ingredient" : "다진마늘",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "18",
+        "icon" : "jjokpa",
+        "category" : "채소",
+        "ingredient" : "쪽파",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "19",
+        "icon" : "katchobushi",
+        "category" : "조미료/양념",
+        "ingredient" : "가쓰오부시",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "20",
+        "icon" : "kimchi",
+        "category" : "김치",
+        "ingredient" : "배추김치",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "21",
+        "icon" : "lettuce",
+        "category" : "채소",
+        "ingredient" : "알배추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "22",
+        "icon" : "lettuce",
+        "category" : "채소",
+        "ingredient" : "배추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "23",
+        "icon" : "mayonnaise",
+        "category" : "조미료/양념",
+        "ingredient" : "마요네즈",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "24",
+        "icon" : "mirin",
+        "category" : "조미료/양념",
+        "ingredient" : "맛술",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "25",
+        "icon" : "myungran",
+        "category" : "젓갈",
+        "ingredient" : "명란젓",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "26",
+        "icon" : "oliveOil",
+        "category" : "오일류",
+        "ingredient" : "올리브유",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "27",
+        "icon" : "pangiMushroom",
+        "category" : "채소",
+        "ingredient" : "팽이버섯",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "28",
+        "icon" : "paprica",
+        "category" : "채소",
+        "ingredient" : "파프리카",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "29",
+        "icon" : "pepper",
+        "category" : "채소",
+        "ingredient" : "꽈리고추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "30",
+        "icon" : "pepper",
+        "category" : "채소",
+        "ingredient" : "풋고추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "31",
+        "icon" : "salt",
+        "category" : "조미료/양념",
+        "ingredient" : "소금",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "32",
+        "icon" : "sesame",
+        "category" : "조미료/양념",
+        "ingredient" : "깨",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "33",
+        "icon" : "sesameOil",
+        "category" : "조미료/양념",
+        "ingredient" : "참기름",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "34",
+        "icon" : "soySauce",
+        "category" : "조미료/양념",
+        "ingredient" : "진간장",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "35",
+        "icon" : "soySauce",
+        "category" : "조미료/양념",
+        "ingredient" : "국간장",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "36",
+        "icon" : "sriracha",
+        "category" : "조미료/양념",
+        "ingredient" : "스리라차 소스",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "37",
+        "icon" : "sugar",
+        "category" : "조미료/양념",
+        "ingredient" : "설탕",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "38",
+        "icon" : "tamato",
+        "category" : "채소",
+        "ingredient" : "토마토",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "39",
+        "icon" : "tofu",
+        "category" : "두부류",
+        "ingredient" : "연두부",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "40",
+        "icon" : "tofu",
+        "category" : "두부류",
+        "ingredient" : "순두부",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "41",
+        "icon" : "tofu",
+        "category" : "두부류",
+        "ingredient" : "두부",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "42",
+        "icon" : "zucckini",
+        "category" : "채소",
+        "ingredient" : "애호박",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "43",
+        "icon" : "crunchedPepper",
+        "category" : "조미료/양념",
+        "ingredient" : "후추",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "44",
+        "icon" : "soySauce",
+        "category" : "조미료/양념",
+        "ingredient" : "간장",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "45",
+        "icon" : "water",
+        "category" : "조미료/양념",
+        "ingredient" : "물",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "46",
+        "icon" : "onion",
+        "category" : "채소",
+        "ingredient" : "양파",
+        "ishave": false,
+        "isFrozen": false
+    },
+    {
+        "id" : "46",
+        "icon" : "bitamin",
+        "category" : "채소",
+        "ingredient" : "비타민",
+        "ishave": false,
+        "isFrozen": false
+    }
+]
