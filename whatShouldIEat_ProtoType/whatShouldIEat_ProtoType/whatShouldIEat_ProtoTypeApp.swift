@@ -11,7 +11,8 @@ import SwiftUI
 struct whatShouldIEat_ProtoTypeApp: App {
     var body: some Scene {
         WindowGroup {
-            MoveTabView()
+//            MoveTabView()
+            ContentView()
         }
     }
 }

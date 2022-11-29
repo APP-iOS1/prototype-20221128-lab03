@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "피망무침.jpg",
+      "filename" : "피망무침.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "피망무침@2x.jpg",
+      "filename" : "피망무침@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "피망무침@3x.jpg",
+      "filename" : "피망무침@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

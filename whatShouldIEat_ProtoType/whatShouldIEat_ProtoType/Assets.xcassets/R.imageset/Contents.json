@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "알배추구이.jpeg",
+      "filename" : "알배추구이.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "알배추구이@2x.jpeg",
+      "filename" : "알배추구이@2x.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "알배추구이@3x.jpeg",
+      "filename" : "알배추구이@3x.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }
