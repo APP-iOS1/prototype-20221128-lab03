@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct RecipeListView: View {
-    
-    @ObservedObject var recipeStore = RecipeStore(recipes: recipeData)
+	@ObservedObject var recipeStore = RecipeStore(recipes: recipeData)
+	
     @State private var searchString : String = ""
     @State private var isBookmarkOn : Bool = false
     
@@ -97,41 +97,37 @@ struct ListCell: View {
                         
                         
                     }
-                    
                     IconCell(recipe: recipe)
-                    
                 }
             }
         }
-        
     }
 }
 
 struct IconCell : View {
+	@EnvironmentObject var ingredientStore: IngredientStore
     
-    @ObservedObject var ingredientStore : IngredientStore = IngredientStore(ingredients: ingredientData)
-    
-    let recipe : Recipe
-    
+    let recipe: Recipe
+	
     var needIngredients: [String] {
         recipe.ingredients.count > 5 ? Array(recipe.ingredients[0...4]) :
         recipe.ingredients
     }
     
-    var body : some View {
-        
+    var body: some View {
         let ingredients = ingredientStore.ingredients
-        
-        HStack {
-            
-//            Text(needIngredients.joined(separator: ", "))
-            
-            ForEach(needIngredients, id: \.self) {item in
-                let icon : String = ingredients.filter{$0.ingredient == item}.first?.icon ?? ""
+		
+		// 기본 재료 JSON을 파싱하고, 그 파싱 데이터의 아이콘 이름으로 이미지 구성
+		HStack {
+            ForEach(needIngredients, id: \.self) { item in
+                let icon: String = ingredients.filter {
+					$0.ingredient == item
+				}.first?.icon ?? ""
 
                 Image(icon)
                     .resizable()
-                    .frame(width:20, height:20)
+                    .frame(width:20,
+						   height:20)
 
             }
         }

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HomeView: View {
-
-    @ObservedObject var ingredientStore: IngredientStore = IngredientStore(ingredients: ingredientData)
+	@EnvironmentObject var ingredientStore: IngredientStore
+	
     @State private var isAvailableView: Bool = false
     @State private var isAddViewShow: Bool = false
 
