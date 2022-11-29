@@ -12,6 +12,9 @@ struct whatShouldIEat_ProtoTypeApp: App {
     var body: some Scene {
         WindowGroup {
             MoveTabView()
+//            ContentView()
         }
     }
 }
+
+// JSON URL = http://openapi.foodsafetykorea.go.kr/api/6eb420202d8b439192d8/COOKRCP01/json/1/1000
