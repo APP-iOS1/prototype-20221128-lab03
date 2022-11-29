@@ -12,6 +12,7 @@ struct whatShouldIEat_ProtoTypeApp: App {
     var body: some Scene {
         WindowGroup {
             MoveTabView()
+				.environmentObject(IngredientStore())
         }
     }
 }

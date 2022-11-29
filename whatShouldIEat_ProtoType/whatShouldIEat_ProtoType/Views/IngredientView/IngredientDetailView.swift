@@ -69,7 +69,6 @@ struct IngredientDetailView: View {
                         Text("추가된 날짜")
                         
                         Spacer()
-                            .frame(width: 87)
                         
                         Text(Date.now, style: .date)
                             .padding(.horizontal, 20)
@@ -79,13 +78,13 @@ struct IngredientDetailView: View {
                             .foregroundColor(Color("fixdataColor"))
                             .cornerRadius(5)
                     } // 추가된 날짜
+					.padding(.trailing, 10)
                     
                     HStack {
                         Image(systemName: "calendar")
                         Text("유통기한")
                         
                         Spacer()
-                            .frame(width: 101)
                         
                         Text("\(expDate, formatter: dateFormatter)")
                             .padding(.horizontal, 20)
@@ -107,6 +106,7 @@ struct IngredientDetailView: View {
                             }
 
                     } // 소비기한 마감
+					.padding(.trailing, 10)
                     
                     HStack {
                         Toggle(isOn: $ingredient.isFrozen) {

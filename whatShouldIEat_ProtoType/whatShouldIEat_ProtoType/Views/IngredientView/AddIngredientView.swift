@@ -1,43 +1,44 @@
 import SwiftUI
 
 struct AddIngredientView: View {
-    
-    @ObservedObject var ingredientStore: IngredientStore
-    @Environment(\.dismiss) private var dismiss
-    
-    let categoryList: [String] = ["채소", "육류/달걀", "두부류", "유제품", "김치", "젓갈", "가루류", "오일류", "조미료/양념"]
-    
-    var body: some View {
-        ScrollView {
-            
-            Text("추가하실 재료를 선택해 주세요")
-                .font(.title)
-                .bold()
-                .padding()
-            
-            VStack(alignment: .leading,spacing: 50) {
-                
-                ForEach(categoryList, id: \.self) { category in
-                    CategoryAndIngredientsView(ingredientStore: ingredientStore, category: category)
-                        .padding([.leading, .trailing])
-                }
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("추가하기") {
-                    dismiss()
-                }
-            }
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            dismiss()
-        }) {
-            Image(systemName: "arrow.left")
-        })
-    }
-    
+	
+	@ObservedObject var ingredientStore: IngredientStore
+	@Environment(\.dismiss) private var dismiss
+	
+	let categoryList: [String] = [
+		"채소", "육류/달걀", "두부류", "유제품", "김치", "젓갈", "가루류", "오일류", "조미료/양념"
+	]
+	
+	var body: some View {
+		ScrollView {
+			Text("추가하실 재료를 선택해 주세요")
+				.font(.title)
+				.bold()
+				.padding()
+			
+			VStack(alignment: .leading, spacing: 50) {
+				
+				ForEach(categoryList, id: \.self) { category in
+					CategoryAndIngredientsView(ingredientStore: ingredientStore, category: category)
+						.padding([.leading, .trailing])
+				}
+			}
+		}
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button("추가하기") {
+					dismiss()
+				}
+			}
+		}
+		.navigationBarBackButtonHidden(true)
+		.navigationBarItems(leading: Button(action: {
+			dismiss()
+		}) {
+			Image(systemName: "arrow.left")
+		})
+	}
+	
     struct CategoryAndIngredientsView: View {
         @ObservedObject var ingredientStore: IngredientStore
         @State private var counter: Int = 0

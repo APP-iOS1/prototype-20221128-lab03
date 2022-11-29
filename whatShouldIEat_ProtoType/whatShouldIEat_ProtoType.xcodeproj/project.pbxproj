@@ -59,6 +59,7 @@
 		6EE0C670291B5C3100314E01 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6EE0C671291B5C3100314E01 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6EE0C67C291B608400314E01 /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 		6EDFA071291A0DF000A542F4 /* whatShouldIEat_ProtoType */ = {
 			isa = PBXGroup;
 			children = (
+				70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */,
 				6EDFA072291A0DF000A542F4 /* whatShouldIEat_ProtoTypeApp.swift */,
 				6EDFA074291A0DF000A542F4 /* ContentView.swift */,
 				7030FB4529359CF100A58F6C /* Views */,
@@ -113,8 +115,8 @@
 		7030FB4229359C6400A58F6C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7030FB4429359CCF00A58F6C /* RecipeModel */,
 				7030FB4329359CB100A58F6C /* IngredientModel */,
+				7030FB4429359CCF00A58F6C /* RecipeModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,10 +124,10 @@
 		7030FB4329359CB100A58F6C /* IngredientModel */ = {
 			isa = PBXGroup;
 			children = (
+				630DD2A7291A4096007428A6 /* Ingredient.swift */,
 				6E473541291B2E21001166DD /* IngredientStore.swift */,
 				630DD2A9291A411D007428A6 /* IngredientData.swift */,
 				630DD2A5291A2D34007428A6 /* IngredientAssets.xcassets */,
-				630DD2A7291A4096007428A6 /* Ingredient.swift */,
 				6E473533291A9C13001166DD /* ingredientData.json */,
 			);
 			path = IngredientModel;
@@ -147,9 +149,9 @@
 			children = (
 				6E473537291A9C3F001166DD /* MoveTabView.swift */,
 				6EAEFA32291C924900C96D45 /* GridTestView.swift */,
+				7030FB4629359D0B00A58F6C /* MainHomeView */,
 				7030FB4829359D8200A58F6C /* IngredientView */,
 				7030FB4729359D2200A58F6C /* RecipeView */,
-				7030FB4629359D0B00A58F6C /* MainHomeView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,6 +417,7 @@
 				DEVELOPMENT_TEAM = 75QZ7682T2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -445,6 +448,7 @@
 				DEVELOPMENT_TEAM = 75QZ7682T2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
