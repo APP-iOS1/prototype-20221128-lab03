@@ -39,6 +39,7 @@
 		630DD2A7291A4096007428A6 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		630DD2A9291A411D007428A6 /* IngredientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientData.swift; sourceTree = "<group>"; };
 		630DD2B5291AB98F007428A6 /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		688A843D2935ADD900FF4596 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6E473533291A9C13001166DD /* ingredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ingredientData.json; sourceTree = "<group>"; };
 		6E473536291A9C3F001166DD /* RecipeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
 		6E473537291A9C3F001166DD /* MoveTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTabView.swift; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */,
+				688A843D2935ADD900FF4596 /* whatShouldIEat-ProtoType-Info.plist */,
 				6EDFA072291A0DF000A542F4 /* whatShouldIEat_ProtoTypeApp.swift */,
 				6EDFA074291A0DF000A542F4 /* ContentView.swift */,
 				7030FB4529359CF100A58F6C /* Views */,
@@ -124,9 +126,9 @@
 		7030FB4329359CB100A58F6C /* IngredientModel */ = {
 			isa = PBXGroup;
 			children = (
-				630DD2A7291A4096007428A6 /* Ingredient.swift */,
 				6E473541291B2E21001166DD /* IngredientStore.swift */,
 				630DD2A9291A411D007428A6 /* IngredientData.swift */,
+				630DD2A7291A4096007428A6 /* Ingredient.swift */,
 				630DD2A5291A2D34007428A6 /* IngredientAssets.xcassets */,
 				6E473533291A9C13001166DD /* ingredientData.json */,
 			);

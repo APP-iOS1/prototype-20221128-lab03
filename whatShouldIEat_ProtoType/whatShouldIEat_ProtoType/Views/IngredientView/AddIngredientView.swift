@@ -6,7 +6,18 @@ struct AddIngredientView: View {
 	@Environment(\.dismiss) private var dismiss
 	
 	let categoryList: [String] = [
-		"채소", "육류/달걀", "두부류", "유제품", "김치", "젓갈", "가루류", "오일류", "조미료/양념"
+		"채소/과일",
+		"버섯류",
+		"육류/달걀",
+		"콩류/견과류/두부류",
+		"유제품",
+		"김치",
+		"가루류",
+		"조미료/양념/오일",
+		"민물/해산물",
+		"음료류",
+		"면류",
+		"곡물/가공류",
 	]
 	
 	var body: some View {
