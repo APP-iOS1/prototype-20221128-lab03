@@ -9,130 +9,145 @@ import SwiftUI
 import Combine
 
 struct RecipeListView: View {
-    
-    @ObservedObject var recipeStore = RecipeStore(recipes: recipeData)
+	@ObservedObject var recipeStore = RecipeStore()
     @State private var searchString : String = ""
     @State private var isBookmarkOn : Bool = false
+    @State private var isDone : Bool = false
     
     var body: some View {
         
-        NavigationView {
-            
-            VStack {
-                
-                searchBar(text: $searchString)
-                    .padding()
-                
-                List {
-                    ForEach($recipeStore.recipes) { recipe in
-                        if isBookmarkOn {
-                            if recipe.wrappedValue.isBookmark {
+        Group {
+            if !isDone {
+                ProgressView()
+            }
+            else {
+                NavigationView {
+                    VStack {
+                        searchBar(text: $searchString)
+                            .padding()
+                        List {
+                            ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { recipe in
+                               
                                 ListCell(recipe: recipe)
+                                /*
+                                if isBookmarkOn {
+                                    if recipe.wrappedValue.isBookmark {
+                                        ListCell(recipe: recipe)
+                                    }
+                                } else {
+                                    ListCell(recipe: recipe)
+                                }
+                                */
                             }
-                        } else {
-                            ListCell(recipe: recipe)
                         }
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                Text("레시피")
+                                    .font(.largeTitle)
+                                    .accessibilityAddTraits(.isHeader)
+                            }
+                        }
+                        .navigationBarItems(trailing : Button {
+                            isBookmarkOn.toggle()
+                        } label: {
+                            Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
+                                .font(.title)
+                                .foregroundColor(.blue)
+                        })
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("레시피")
-                            .font(.largeTitle)
-                            .accessibilityAddTraits(.isHeader)
-                    }
-                }
-                .navigationBarItems(trailing : Button {
-                    isBookmarkOn.toggle()
-                } label: {
-                    Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
-                        .font(.title)
-                        .foregroundColor(.blue)
-                })
-                //                .toolbar {
-                //                    ToolbarItem(placement:.navigationBarTrailing) {
-                //                        Button {
-                //                            isBookmarkOn.toggle()
-                //                        } label: {
-                //                            Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
-                //                                .font(.title)
-                //                                .foregroundColor(.blue)
-                //                        }
-                ////                        .padding(.top,80)
-                
             }
         }
+        .onAppear {
+            Task {
+                var recipeNetwork = RecipeNetworkModel()
+                await recipeNetwork.parsing()
+                print("A")
+                guard let data = recipeNetwork.allRecipeData else {
+                    return
+                }
+                print("B")
+                recipeStore.recipes2 = data.COOKRCP01.row
+                isDone = true
+            }
+        }
+        
+        
+        
+        
+        
     }
 }
 
 
 struct ListCell: View {
-    @Binding var recipe: Recipe
+    @Binding var recipe: EachRecipeDetail
     
     var body: some View {
         NavigationLink(destination: RecipeDetail(selectedRecipe: $recipe)) {
             HStack {
                 ZStack {
-                    Image(recipe.imageName)
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(20)
-                    if recipe.isBookmark {
+                    AsyncImage(url: URL(string: recipe.ATT_FILE_NO_MK)) { image in
+                        image
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(20)
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+//                    if recipe.isBookmark {
+                    if false {
                         Image(systemName: "bookmark.fill")
                             .foregroundColor(.blue)
                             .offset(x : 35, y : -35)
                             .overlay {
                             }
                     }
-                    
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {
                     
                     HStack {
-                        Text(recipe.dish)
+                        Text(recipe.RCP_NM)
                             .font(.title2)
                             .fontWeight(.medium)
                             .frame(width : 200,alignment: .leading)
                         
                         
                     }
-                    
-                    IconCell(recipe: recipe)
-                    
+//                    IconCell(recipe: recipe)
                 }
             }
         }
-        
     }
 }
 
 struct IconCell : View {
+	@EnvironmentObject var ingredientStore: IngredientStore
     
-    @ObservedObject var ingredientStore : IngredientStore = IngredientStore(ingredients: ingredientData)
-    
-    let recipe : Recipe
-    
+    let recipe: Recipe
+	
     var needIngredients: [String] {
         recipe.ingredients.count > 5 ? Array(recipe.ingredients[0...4]) :
         recipe.ingredients
     }
     
-    var body : some View {
-        
+    var body: some View {
         let ingredients = ingredientStore.ingredients
-        
-        HStack {
-            
-//            Text(needIngredients.joined(separator: ", "))
-            
-            ForEach(needIngredients, id: \.self) {item in
-                let icon : String = ingredients.filter{$0.ingredient == item}.first?.icon ?? ""
+		
+		// 기본 재료 JSON을 파싱하고, 그 파싱 데이터의 아이콘 이름으로 이미지 구성
+		HStack {
+            ForEach(needIngredients, id: \.self) { item in
+                let icon: String = ingredients.filter {
+					$0.ingredient == item
+				}.first?.icon ?? ""
 
                 Image(icon)
                     .resizable()
-                    .frame(width:20, height:20)
-
+                    .frame(width:20,
+						   height:20)
             }
         }
     }

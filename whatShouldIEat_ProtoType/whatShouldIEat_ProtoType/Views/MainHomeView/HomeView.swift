@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HomeView: View {
-
-    @ObservedObject var ingredientStore: IngredientStore = IngredientStore(ingredients: ingredientData)
+	@EnvironmentObject var ingredientStore: IngredientStore
+	
     @State private var isAvailableView: Bool = false
     @State private var isAddViewShow: Bool = false
 
@@ -98,7 +98,7 @@ struct HomeView: View {
                     .background(Color.blue)
                     .cornerRadius(20)
                     .onTapGesture { isAvailableView = true }
-                    .sheet(isPresented: $isAvailableView) { AvailableRecipeView() }
+//                    .sheet(isPresented: $isAvailableView) { AvailableRecipeView() }
             }
             
         } // main Vstack

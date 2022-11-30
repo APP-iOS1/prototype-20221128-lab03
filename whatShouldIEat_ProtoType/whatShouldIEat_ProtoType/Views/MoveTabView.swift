@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct MoveTabView: View {
+	@EnvironmentObject var ingredientManager: IngredientStore
+	
     var body: some View {
         TabView {
-            
             NavigationView{
-                HomeView()
+				HomeView()
             }.tabItem {
                 Image(systemName: "refrigerator.fill")
                 Text("나의 냉장고")
@@ -24,9 +25,7 @@ struct MoveTabView: View {
                 Image(systemName: "doc.text.image")
                 Text("레시피")
             }
-
         }
-        
     }
 }
 

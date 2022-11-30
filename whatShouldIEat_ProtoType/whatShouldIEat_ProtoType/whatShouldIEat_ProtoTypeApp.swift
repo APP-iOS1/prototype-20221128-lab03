@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct whatShouldIEat_ProtoTypeApp: App {
+
     var body: some Scene {
         WindowGroup {
-            MoveTabView()
+			// FoodDB 초기화
+			let _ = initFoodDB()
+
+            ContentView()
+				.environmentObject(IngredientStore())
         }
     }
 }

@@ -12,6 +12,7 @@
 		630DD2A8291A4096007428A6 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DD2A7291A4096007428A6 /* Ingredient.swift */; };
 		630DD2AA291A411D007428A6 /* IngredientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DD2A9291A411D007428A6 /* IngredientData.swift */; };
 		630DD2B6291AB98F007428A6 /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = 630DD2B5291AB98F007428A6 /* .gitattributes */; };
+		6E18B8DF293713620051E682 /* RecipeDetailPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18B8DE293713620051E682 /* RecipeDetailPageView.swift */; };
 		6E473534291A9C13001166DD /* ingredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E473533291A9C13001166DD /* ingredientData.json */; };
 		6E47353B291A9C3F001166DD /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E473536291A9C3F001166DD /* RecipeDetail.swift */; };
 		6E47353C291A9C3F001166DD /* MoveTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E473537291A9C3F001166DD /* MoveTabView.swift */; };
@@ -39,6 +40,8 @@
 		630DD2A7291A4096007428A6 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		630DD2A9291A411D007428A6 /* IngredientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientData.swift; sourceTree = "<group>"; };
 		630DD2B5291AB98F007428A6 /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		688A843D2935ADD900FF4596 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
+		6E18B8DE293713620051E682 /* RecipeDetailPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailPageView.swift; sourceTree = "<group>"; };
 		6E473533291A9C13001166DD /* ingredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ingredientData.json; sourceTree = "<group>"; };
 		6E473536291A9C3F001166DD /* RecipeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
 		6E473537291A9C3F001166DD /* MoveTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTabView.swift; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		6EE0C670291B5C3100314E01 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6EE0C671291B5C3100314E01 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6EE0C67C291B608400314E01 /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,8 @@
 		6EDFA071291A0DF000A542F4 /* whatShouldIEat_ProtoType */ = {
 			isa = PBXGroup;
 			children = (
+				70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */,
+				688A843D2935ADD900FF4596 /* whatShouldIEat-ProtoType-Info.plist */,
 				6EDFA072291A0DF000A542F4 /* whatShouldIEat_ProtoTypeApp.swift */,
 				6EDFA074291A0DF000A542F4 /* ContentView.swift */,
 				7030FB4529359CF100A58F6C /* Views */,
@@ -113,8 +119,8 @@
 		7030FB4229359C6400A58F6C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7030FB4429359CCF00A58F6C /* RecipeModel */,
 				7030FB4329359CB100A58F6C /* IngredientModel */,
+				7030FB4429359CCF00A58F6C /* RecipeModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -124,8 +130,8 @@
 			children = (
 				6E473541291B2E21001166DD /* IngredientStore.swift */,
 				630DD2A9291A411D007428A6 /* IngredientData.swift */,
-				630DD2A5291A2D34007428A6 /* IngredientAssets.xcassets */,
 				630DD2A7291A4096007428A6 /* Ingredient.swift */,
+				630DD2A5291A2D34007428A6 /* IngredientAssets.xcassets */,
 				6E473533291A9C13001166DD /* ingredientData.json */,
 			);
 			path = IngredientModel;
@@ -147,9 +153,9 @@
 			children = (
 				6E473537291A9C3F001166DD /* MoveTabView.swift */,
 				6EAEFA32291C924900C96D45 /* GridTestView.swift */,
+				7030FB4629359D0B00A58F6C /* MainHomeView */,
 				7030FB4829359D8200A58F6C /* IngredientView */,
 				7030FB4729359D2200A58F6C /* RecipeView */,
-				7030FB4629359D0B00A58F6C /* MainHomeView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +175,7 @@
 				6E473536291A9C3F001166DD /* RecipeDetail.swift */,
 				2297B839291D34F800F02613 /* RecipeListView.swift */,
 				6EE0C66E291B473A00314E01 /* AvailableRecipeView.swift */,
+				6E18B8DE293713620051E682 /* RecipeDetailPageView.swift */,
 			);
 			path = RecipeView;
 			sourceTree = "<group>";
@@ -268,6 +275,7 @@
 			files = (
 				6EDFA075291A0DF000A542F4 /* ContentView.swift in Sources */,
 				6EE0C673291B5C3100314E01 /* WebView.swift in Sources */,
+				6E18B8DF293713620051E682 /* RecipeDetailPageView.swift in Sources */,
 				6EAEFA35291C936000C96D45 /* IngredientDetailView.swift in Sources */,
 				6E47353B291A9C3F001166DD /* RecipeDetail.swift in Sources */,
 				6EAEFA31291B661B00C96D45 /* RecipeStore.swift in Sources */,
@@ -415,6 +423,7 @@
 				DEVELOPMENT_TEAM = 75QZ7682T2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -445,6 +454,7 @@
 				DEVELOPMENT_TEAM = 75QZ7682T2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
