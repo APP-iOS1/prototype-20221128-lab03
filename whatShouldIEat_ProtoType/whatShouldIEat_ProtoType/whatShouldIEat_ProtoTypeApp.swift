@@ -15,7 +15,7 @@ struct whatShouldIEat_ProtoTypeApp: App {
 			// FoodDB 초기화
 			let _ = initFoodDB()
 
-            MoveTabView()
+            ContentView()
 				.environmentObject(IngredientStore())
         }
     }

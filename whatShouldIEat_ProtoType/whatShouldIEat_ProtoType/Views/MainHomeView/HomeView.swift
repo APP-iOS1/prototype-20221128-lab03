@@ -98,7 +98,7 @@ struct HomeView: View {
                     .background(Color.blue)
                     .cornerRadius(20)
                     .onTapGesture { isAvailableView = true }
-                    .sheet(isPresented: $isAvailableView) { AvailableRecipeView() }
+//                    .sheet(isPresented: $isAvailableView) { AvailableRecipeView() }
             }
             
         } // main Vstack
