@@ -58,7 +58,11 @@ struct RecipeParsingResult: Codable {
 	var CODE: String
 }
 
-struct EachRecipeDetail: Codable {
+struct EachRecipeDetail: Codable, Hashable {
+    
+//    var id = UUID().uuidString
+//    var isBookmark : Bool = false
+    
 	var RCP_PARTS_DTLS: String = ""
 	var RCP_WAY2: String = ""
 	var MANUAL_IMG20: String = ""
@@ -113,4 +117,15 @@ struct EachRecipeDetail: Codable {
 	var MANUAL16: String = ""
 	var MANUAL13: String = ""
 	var MANUAL14: String = ""
+    
+    var recipeInfoDetailList : [(img : String, description : String)] {
+        return [
+            (MANUAL_IMG01,MANUAL01),(MANUAL_IMG02,MANUAL02),(MANUAL_IMG03,MANUAL03),(MANUAL_IMG04,MANUAL04),
+            (MANUAL_IMG05,MANUAL05),(MANUAL_IMG06,MANUAL06),(MANUAL_IMG07,MANUAL07),(MANUAL_IMG08,MANUAL08),
+            (MANUAL_IMG19,MANUAL19),(MANUAL_IMG10,MANUAL10),(MANUAL_IMG11,MANUAL11),(MANUAL_IMG12,MANUAL12),
+            (MANUAL_IMG13,MANUAL13),(MANUAL_IMG14,MANUAL14),(MANUAL_IMG15,MANUAL15),(MANUAL_IMG16,MANUAL16),
+            (MANUAL_IMG17,MANUAL17),(MANUAL_IMG18,MANUAL18),(MANUAL_IMG19,MANUAL19),(MANUAL_IMG20,MANUAL20)
+        ]
+    }
+    
 }
