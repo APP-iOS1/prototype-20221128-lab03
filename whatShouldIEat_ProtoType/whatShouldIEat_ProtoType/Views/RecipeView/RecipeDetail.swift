@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct RecipeDetail: View {
-    @Binding var selectedRecipe: Recipe
+    @Binding var selectedRecipe: EachRecipeDetail
     
     // URL 관련 값들
     @State var isRecipeMediaOn : Bool = false
-    
-    
     let ingredients = ingredientData
     
     let columns = [
@@ -27,19 +25,18 @@ struct RecipeDetail: View {
     var body: some View {
         
         // URL 관련 변수
-        let urlStr = "https://www.youtube.com/results?search_query=\(selectedRecipe.dish.components(separatedBy: " ").joined(separator: "+"))"
+        let urlStr = "https://www.youtube.com/results?search_query=\(selectedRecipe.RCP_NM.components(separatedBy: " ").joined(separator: "+"))"
         let encodedStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: encodedStr)!
         
-        
         ScrollView {
             HStack {
-                Text(selectedRecipe.dish)
+                Text(selectedRecipe.RCP_NM)
                     .font(.largeTitle)
                     .bold()
                 
                 Spacer()
-                
+           /*
                 Button {
                     selectedRecipe.isBookmark.toggle()
                 } label: {
@@ -47,16 +44,20 @@ struct RecipeDetail: View {
                         .font(.largeTitle)
                         .foregroundColor(.blue)
                 }
-                
+                */
             }
             
             VStack(alignment: .leading, spacing: 10) {
-                Image(selectedRecipe.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(15)
+                AsyncImage(url: URL(string: selectedRecipe.ATT_FILE_NO_MK)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(20)
+                } placeholder: {
+                    ProgressView()
+                }
                 
-                Text(selectedRecipe.description)
+                Text(selectedRecipe.HASH_TAG)
                     .font(.title2)
                     .padding(.bottom, 20)
                     .foregroundColor(.gray)
@@ -80,7 +81,10 @@ struct RecipeDetail: View {
                     .font(.title)
                     .foregroundColor(.gray)
                 
+                Text(selectedRecipe.RCP_PARTS_DTLS)
+                    .font(.title3)
                 
+                /*
                 LazyVGrid(columns: columns) {
                     ForEach(selectedRecipe.ingredients, id: \.self) {item in
                         let icon = ingredients.filter{$0.ingredient == item}.first?.icon ?? ""
@@ -93,6 +97,7 @@ struct RecipeDetail: View {
                         }
                     }
                 }
+                 */
                 
                 
                 Divider()
@@ -101,6 +106,18 @@ struct RecipeDetail: View {
                     .font(.title)
                     .foregroundColor(.gray)
                 
+                NavigationLink {
+                    RecipeDetailPageView(selectedRecipe: $selectedRecipe)
+                } label: {
+                    HStack {
+                        Image(systemName: "doc.richtext")
+                        Text("레시피 보러가기")
+                        Spacer()
+                    }
+                    .font(.title3)
+                }
+
+                /*
                 VStack(alignment: .leading,spacing: 25) {
                     ForEach(0..<selectedRecipe.recipe.count, id: \.self) { index in
                         HStack(alignment: .top){
@@ -118,6 +135,7 @@ struct RecipeDetail: View {
                         }
                     }
                 }
+                 */
                 
             }
             
@@ -126,7 +144,7 @@ struct RecipeDetail: View {
             } label: {
                 HStack {
                     Image(systemName: "play.rectangle.fill")
-                    Text("레시피 보러가기")
+                    Text("레시피 영상 보기")
                     Spacer()
                 }
                 .foregroundColor(.red)
