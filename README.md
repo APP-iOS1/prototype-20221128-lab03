@@ -25,6 +25,7 @@
 ## 활용한 기술
 - SwiftUI
 - URLSession
+- Combine
 
 ## 스크린샷
 <img src="https://user-images.githubusercontent.com/45925685/204178058-f39f7912-33c7-4320-81e2-c2a57e6bb99a.png" height="400">
