@@ -46,7 +46,10 @@ final class IngredientStore: ObservableObject {
 			ingredientsDictionary.updateValue([eachIngredients], forKey: key)
 		} else {
 			ingredientsDictionary[key]?.append(eachIngredients)
-		}		
+		}
+        print("---updateDictionary---")
+        print(ingredientsDictionary)
+        print("-------")
 	}
     
     public func doSomething() {
