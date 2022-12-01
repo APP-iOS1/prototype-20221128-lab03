@@ -19,7 +19,6 @@ struct MoveTabView: View {
                 Image(systemName: "refrigerator.fill")
                 Text("나의 냉장고")
             }
-
             RecipeListView(recipeStore: recipeStore)
                 .tabItem {
                 Image(systemName: "doc.text.image")
@@ -28,13 +27,11 @@ struct MoveTabView: View {
         }
         .onAppear {
             Task {
-                var recipeNetwork = RecipeNetworkModel()
+                let recipeNetwork = RecipeNetworkModel()
                 await recipeNetwork.parsing()
-                print("A")
                 guard let data = recipeNetwork.allRecipeData else {
                     return
                 }
-                print("B")
                 recipeStore.recipes2 = data.COOKRCP01.row
             }
         }

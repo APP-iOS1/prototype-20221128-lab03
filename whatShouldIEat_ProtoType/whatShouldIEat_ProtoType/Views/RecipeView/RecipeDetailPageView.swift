@@ -10,92 +10,52 @@ import SwiftUI
 struct RecipeDetailPageView: View {
     
     @Binding var selectedRecipe : EachRecipeDetail
+    @State private var enablePages : [(img : String, description : String)] = []
     
     var body: some View {
-        
-        
-        
-        myPages(selectedRecipe: $selectedRecipe)
-        
-        
-    }
-}
-
-struct Page : View {
-    let urlString : String
-    var body: some View {
-        
-        AsyncImage(url: URL(string: urlString)) { image in
-            image
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(15)
-                
-        } placeholder: {
-            ProgressView()
-        }
-        .frame(width: 160, height: 160)
-        
-        
-    }
-}
-
-struct myPages : View {
-    
-    @Binding var selectedRecipe : EachRecipeDetail
-    @State var enablePages : [(img : String, description : String)] = []
-    @State var enablePagesImg : [String] = []
-    @State var enablePagesDescription : [String] = []
-    @State var selectedTag : Int = 0
-    
-    var body: some View {
-        
-        TabView(selection:$selectedTag) {
-            ForEach(enablePagesImg.indices, id: \.self) {index in
-                ZStack {
-                    VStack {
-                        Page(urlString: enablePagesImg[index])
-                        Text(enablePagesDescription[index])
+        ScrollView{
+            
+            AsyncImage(url: URL(string: selectedRecipe.ATT_FILE_NO_MK)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(20)
+                    .padding(.horizontal, 20)
+            } placeholder: {
+                ProgressView()
+            }
+            
+            HStack {
+                Text(selectedRecipe.RCP_NM)
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.leading, 20)
+                Spacer()
+            }
+            
+            HStack {
+                VStack(alignment : .leading) {
+                    ForEach(enablePages.indices, id: \.self) {index in
+                        Page(urlString: enablePages[index].img, size: 120)
+                        Text(enablePages[index].description)
+                            .padding(.top, -20)
                     }
-                    .tag(index)
-                    GeometryReader { geometry in
-                        HStack {
-                            Rectangle()
-                                .opacity(0.001)
-                                .frame(width: geometry.size.width / 2)
-                                .onTapGesture {
-                                    if selectedTag > 0 {
-                                        selectedTag -= 1
-                                    }
-                                }
-                            Rectangle()
-                                .opacity(0.001)
-                                .frame(width: geometry.size.width / 2)
-                                .onTapGesture {
-                                    if selectedTag < enablePagesImg.count-1 {
-                                        selectedTag += 1
-                                    }
-                                }
-                        }
-                    }
+                    .padding(.bottom, 20)
+                    
+                    Spacer()
                 }
+                .padding(.leading, 20)
+                Spacer()
             }
         }
-        .tabViewStyle(PageTabViewStyle())
-        // .never 로 하면 배경 안보이고 .always 로 하면 인디케이터 배경 보입니다.
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         .onAppear {
             enablePages = selectedRecipe.recipeInfoDetailList.filter{!$0.img.isEmpty}
-            enablePagesImg = enablePages.map{$0.img}
-            enablePagesDescription = enablePages.map{$0.description}
-            
         }
-        
-        
     }
-    
-    
+        
 }
+
+
 
 //struct RecipeDetailPageView_Previews: PreviewProvider {
 //    static var previews: some View {

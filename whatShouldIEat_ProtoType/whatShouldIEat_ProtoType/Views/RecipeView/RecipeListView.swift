@@ -68,6 +68,14 @@ struct RecipeListView: View {
             }
     }
 }
+        
+        
+        
+        
+        
+        
+    
+
 
 
 struct ListCell: View {
@@ -85,9 +93,8 @@ struct ListCell: View {
                     } placeholder: {
                         ProgressView()
                     }
-                    
-                    //                    if recipe.isBookmark {
-                    if false {
+
+                    if recipe.isBookmark ?? false {
                         Image(systemName: "bookmark.fill")
                             .foregroundColor(.blue)
                             .offset(x : 35, y : -35)
