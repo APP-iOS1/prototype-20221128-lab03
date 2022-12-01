@@ -17,8 +17,10 @@ struct IngredientDetailView: View {
     //데이터 포멧 설정
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.locale = Locale(identifier: "ko_KR")
+//        formatter.dateStyle = .long
+        formatter.locale = Locale(identifier: "ko_kR")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter
     }
     
@@ -63,22 +65,25 @@ struct IngredientDetailView: View {
                 .padding(.top, 20)
                 
                 Group {
+                    // 추가된 날짜
                     HStack {
                         Image(systemName: "calendar")
                         Text("추가된 날짜")
                         
                         Spacer()
                         
-                        Text(Date.now, style: .date)
+//                        Text(Date.now, style: .date)
+                        Text("\(Date.now, formatter: dateFormatter)")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                             .background(Color(UIColor.systemGray6))
                             .font(.system(size: 15))
                             .foregroundColor(Color("fixdataColor"))
                             .cornerRadius(5)
-                    } // 추가된 날짜
-					.padding(.trailing, 10)
+                    }
+					.padding(.trailing, 20)
                     
+                    // 유통기한
                     HStack {
                         Image(systemName: "calendar")
                         Text("유통기한")
@@ -88,7 +93,7 @@ struct IngredientDetailView: View {
                         Text("\(expDate, formatter: dateFormatter)")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
-                            .frame(width : 155)
+//                            .frame(width : 155)
                             .background(.yellow)
                             .font(.system(size: 15))
                             .foregroundColor(.black)
@@ -102,10 +107,29 @@ struct IngredientDetailView: View {
                             .sheet(isPresented: $isDateOn) {
                                 DatePickerView(expDate: $expDate)
                                     .presentationDetents([.medium])
+                                
                             }
 
-                    } // 소비기한 마감
-					.padding(.trailing, 10)
+                    }
+					.padding(.trailing, 20)
+                    
+                    // 소비기한
+                    HStack {
+                        Image(systemName: "calendar.badge.exclamationmark")
+//                        Image(systemName: "calendar.badge.plus")
+                        Text("소비기한")
+                        
+                        Spacer()
+
+                        Text("\(Calendar.current.date(byAdding: .day, value:7, to: expDate)!, formatter: dateFormatter)까지")
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+//                            .background(Color(UIColor.systemGray6))
+                            .font(.system(size: 15))
+                            .foregroundColor(Color.accentColor)
+                            .bold()
+//                            .cornerRadius(5)
+                    }
                     
                     HStack {
                         Toggle(isOn: $ingredient.isFrozen) {
