@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MoveTabView: View {
 	@EnvironmentObject var ingredientManager: IngredientStore
-	
+	@ObservedObject var recipeStore = RecipeStore()
+    
     var body: some View {
         TabView {
             NavigationView{
@@ -20,10 +21,22 @@ struct MoveTabView: View {
             }
 
 
-            RecipeListView()
+            RecipeListView(recipeStore: recipeStore)
                 .tabItem {
                 Image(systemName: "doc.text.image")
                 Text("레시피")
+            }
+        }
+        .onAppear {
+            Task {
+                var recipeNetwork = RecipeNetworkModel()
+                await recipeNetwork.parsing()
+                print("A")
+                guard let data = recipeNetwork.allRecipeData else {
+                    return
+                }
+                print("B")
+                recipeStore.recipes2 = data.COOKRCP01.row
             }
         }
     }
