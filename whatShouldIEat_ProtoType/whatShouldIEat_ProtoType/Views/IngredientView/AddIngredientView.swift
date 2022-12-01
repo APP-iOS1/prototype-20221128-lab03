@@ -5,19 +5,10 @@ struct AddIngredientView: View {
 	@ObservedObject var ingredientStore: IngredientStore
 	@Environment(\.dismiss) private var dismiss
 	
-	@State private var selectedItemCounter = 0
 	@State private var isItemSelected = false
 	@State private var isModalPresented = false
-	
 	@State private var newIngredientArr = [NewIngredient]()
-	
-	let gridSystem = [
-		//추가 하면 할수록 화면에 보여지는 개수가 변함
-		GridItem(.flexible(), spacing: 7.5, alignment: .top),
-		GridItem(.flexible(), spacing: 7.5, alignment: .top),
-		GridItem(.flexible(), spacing: 7.5, alignment: .top),
-		GridItem(.flexible(), spacing: 7.5, alignment: .top)
-	]
+	@State private var updatedNewIngredient = false
 	
 	var body: some View {
 		ScrollView {
@@ -32,35 +23,16 @@ struct AddIngredientView: View {
 			VStack(alignment: .leading, spacing: 20) {
 				ForEach(ingredientStore.ingredientCategoryList, id: \.self) { categoryKey in
 					// categoryKey == Header, DictionaryKey
-					HStack {
-						Text(categoryKey)
-							.font(.title2)
-							.foregroundColor(.blue)
-							.fontWeight(.bold)
-						
-						Spacer()
-						
-						Text("\(selectedItemCounter)" + "개 선택됨")
-					}
-					.padding(.horizontal)
-					
-					Divider()
-					
-					if let foodDBArray = foodDb[categoryKey] {
-						LazyVGrid(columns: gridSystem) {
-							ForEach(foodDBArray, id: \.self) { eachFoodName in
-								FoodLazyVGridView(eachFoodName: eachFoodName,
-												  category: categoryKey,
-												  foodDBArray: foodDBArray,
-												  selectedItemCounter: $selectedItemCounter,
-												  newIngredientArr: $newIngredientArr)
-							}
-						}
-					}
+					IngredientViewBuilder(categoryKey: categoryKey,
+										  newIngredientArr: $newIngredientArr)
 				}
 			}
-			.sheet(isPresented: $isModalPresented) {
+			// "추가하기" 버튼으로 뷰 이동
+			.sheet(isPresented: $isModalPresented, onDismiss: {
+				goBackToHomeView()
+			}) {
 				AddIngredientDetailModalView(isModalPresented: $isModalPresented,
+											 updatedNewIngredient: $updatedNewIngredient,
 											 newIngredientArr: $newIngredientArr)
 				
 			}
@@ -69,15 +41,76 @@ struct AddIngredientView: View {
 					Button("추가하기") {
 						isModalPresented.toggle()
 					}
-					.disabled(selectedItemCounter > 0 ? false : true)
+					.disabled(newIngredientArr.isEmpty ? true : false)
 				}
 			}
 			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading: Button(action: {
+			.navigationBarItems(leading:
+									Button(action: {
 				dismiss()
 			}) {
 				Image(systemName: "arrow.left")
 			})
+		}
+	}
+	
+	private func goBackToHomeView() {
+		if updatedNewIngredient {
+			self.dismiss()
+		}
+	}
+}
+
+struct IngredientViewBuilder: View {
+	let categoryKey: String
+	
+	// 각 헤더가 하나의 카운터를 갖는다.
+	@State var selectedItemCounter: Int = 0
+	@Binding var newIngredientArr: [NewIngredient]
+	
+	let gridSystem = [
+		//추가 하면 할수록 화면에 보여지는 개수가 변함
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top)
+	]
+	
+	var body: some View {
+		EachSectionHeaderView(category: categoryKey,
+							  selectedItemCounter: $selectedItemCounter)
+			.padding(.horizontal)
+		
+		Divider()
+		
+		if let foodDBArray = foodDb[categoryKey] {
+			LazyVGrid(columns: gridSystem) {
+				ForEach(foodDBArray, id: \.self) { eachFoodName in
+					FoodLazyVGridView(eachFoodName: eachFoodName,
+									  category: categoryKey,
+									  foodDBArray: foodDBArray,
+									  selectedItemCounter: $selectedItemCounter,
+									  newIngredientArr: $newIngredientArr)
+				}
+			}
+		}
+	}
+}
+
+struct EachSectionHeaderView: View {
+	public let category: String
+	@Binding var selectedItemCounter: Int
+	
+	var body: some View {
+		HStack {
+			Text(category)
+				.font(.title2)
+				.foregroundColor(.blue)
+				.fontWeight(.bold)
+			
+			Spacer()
+			
+			Text("\(selectedItemCounter)" + "개 선택됨")
 		}
 	}
 }
@@ -96,29 +129,29 @@ struct FoodLazyVGridView: View {
 			Image(systemName: "star")
 				.resizable()
 				.frame(width: 30, height: 30)
+				.onTapGesture {
+					isItemSelected.toggle()
+					if isItemSelected {
+						selectedItemCounter += 1
+						print(category)
+						newIngredientArr.append(NewIngredient(category: category,
+															  name: eachFoodName))
+					} else {
+						selectedItemCounter -= 1
+						for index in 0 ..< newIngredientArr.count {
+							if newIngredientArr[index].name == eachFoodName {
+								newIngredientArr.remove(at: index)
+								break
+							}
+						}
+					}
+				}
 			
 			Text(eachFoodName)
 				.frame(width: 90, height: 25)
 		}
 		.padding(.vertical, 3)
 		.opacity(isItemSelected ? 1 : 0.7)
-		.onTapGesture {
-			isItemSelected.toggle()
-			
-			if isItemSelected {
-				selectedItemCounter += 1
-				newIngredientArr.append(NewIngredient(category: category,
-													  name: eachFoodName))
-			} else {
-				selectedItemCounter -= 1
-				for index in 0 ..< newIngredientArr.count {
-					if newIngredientArr[index].name == eachFoodName {
-						newIngredientArr.remove(at: index)
-						break
-					}
-				}
-			}
-		}
 	}
 }
 
