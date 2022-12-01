@@ -16,13 +16,12 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        //        let ingredientCount = ingredientStore.ingredients.filter { $0.ishave }.count
+//      let ingredientCount = ingredientStore.ingredients.filter { $0.ishave }.count
         let isMyIngredientEmpty = ingredientStore.ingredientsDictionary.isEmpty
-        //		let isMyFrozonIngredientEmpty = ingredientStore.ingredientsDictionary.values.filter { $0. }
+//		let isMyFrozonIngredientEmpty = ingredientStore.ingredientsDictionary.values.filter { $0. }
         
         VStack {
             VStack(alignment: .leading) { // isHave ==  true인 재료가 보여짐
-                /// selection: Int (현재 임시로 1로 박아둠)
                 Picker("Choose a side", selection: $selectedIndex) {
                     ForEach(0..<3, id:\.self) { index in
                         Text("\(pickerLabelList[index])")
@@ -32,7 +31,8 @@ struct HomeView: View {
                 .padding()
                 
                 TabView(selection: $selectedIndex) {
-                    // Group은 Container이므로, View와 같지 않다. 그래서 TabItem을 Group에 설정하면 원하는대로 안될 수 있다.
+                    /// Group은 Container이므로, View와 같지 않다.
+                    /// 그래서 TabItem을 Group에 설정하면 원하는대로 안될 수 있다.
                     // tab1. 냉장실
                     VStack {
 //                        Text("냉장실")
@@ -50,11 +50,13 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-                                    ForEach(ingredientData, id: \.self) { eachIngredient in
-                                        let key = eachIngredient.ingredient
-                                        if let myIngredient = ingredientStore.ingredientsDictionary[key] {
+                                    //
+                                    ForEach(Array(ingredientStore.ingredientsDictionary.keys), id: \.self) { eachIngredient in
+//                                        let key = eachIngredient
+                                        if let myIngredient = ingredientStore.ingredientsDictionary[eachIngredient] {
                                             ForEach(myIngredient, id: \.self) { str in
-                                                Text(str.ingredient)
+                                                // IngredientCell
+                                                IngredientCell(ingredient: str)
                                             }
                                         }
                                     }
@@ -92,11 +94,11 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-                                    ForEach($ingredientStore.ingredients) { ingredient in
-                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
-                                            IngredientCell(ingredient: ingredient)
-                                        }
-                                    }
+//                                    ForEach($ingredientStore.ingredients) { ingredient in
+//                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
+//                                            IngredientCell(ingredient: ingredient)
+//                                        }
+//                                    }
                                 }
                                 Text("냉장고 털러가기")
                                     .fontWeight(.bold)
@@ -121,7 +123,7 @@ struct HomeView: View {
 //                            .frame(width: 350, height: 50, alignment: .leading)
                         
                         // FIXME: 실온 보관 카테고리 미완성 (실온 보관 재료들에 대한 데이터 없음)
-                        // 구조만 만들어둠, 추후에 true 자리 변경하시오.
+                        /// 구조만 만들어둠. 추후에 true 자리에 (실온보관재료).isEmpty로 변경해주어야 한다.
                         if true {
                             VStack {
                                 Spacer()
@@ -131,11 +133,11 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-                                    ForEach($ingredientStore.ingredients) { ingredient in
-                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
-                                            IngredientCell(ingredient: ingredient)
-                                        }
-                                    }
+//                                    ForEach($ingredientStore.ingredients) { ingredient in
+//                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
+//                                            IngredientCell(ingredient: ingredient)
+//                                        }
+//                                    }
                                 }
                                 Text("냉장고 털러가기")
                                     .fontWeight(.bold)
@@ -176,10 +178,9 @@ struct HomeView: View {
     }
 }// body
 
-//}
 
 struct IngredientCell: View {
-    @Binding var ingredient: Ingredient
+    @State var ingredient: Ingredient
     @State private var isShowing: Bool = false
     
     var body: some View {
@@ -188,12 +189,14 @@ struct IngredientCell: View {
             isShowing.toggle()
         } label: {
             VStack(spacing: 10) {
-                Image(ingredient.icon)
+                Image(systemName: ingredient.icon)
                     .resizable()
                     .frame(width: 30, height: 30)
                 Text(ingredient.ingredient)
                     .foregroundColor(.black)
-                //                    .fontWeight(.semibold)
+//                    .fontWeight(.semibold)
+                Text("150g")
+                    .font(.subheadline)
             }
         }
         .sheet(isPresented: $isShowing) {
