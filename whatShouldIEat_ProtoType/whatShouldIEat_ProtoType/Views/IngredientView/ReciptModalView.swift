@@ -14,6 +14,7 @@ struct ReciptModalView: View {
     
     @Binding var newIngredientArr: [NewIngredient]
     @Binding var isReciptModalPresented: Bool
+    @Binding var isModalPresendted: Bool
     
     var body: some View {
         ZStack{
@@ -88,6 +89,7 @@ struct ReciptModalView: View {
                                 newIngredientArr.append(NewIngredient(category: "육류/달걀", name: "돼지고기"))
                                 newIngredientArr.append(NewIngredient(category: "유제품", name: "우유"))
                                 newIngredientArr.append(NewIngredient(category: "유제품", name: "플레인요거트"))
+                                isModalPresendted.toggle()
                             } label: {
                                 Text("추가하기")
                             }
