@@ -22,50 +22,50 @@ struct RecipeListView: View {
     @State private var isBookmarkOn : Bool = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                searchBar(text: $searchString)
-                    .padding()
-                ScrollView {
-                    ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { $recipe in
-                        if (searchString == ""){
-                            ListCell(recipe: $recipe)
-                        }else if recipe.RCP_NM.contains(searchString){
-                            ListCell(recipe: $recipe)
+            NavigationStack {
+                VStack {
+                    searchBar(text: $searchString)
+                        .padding()
+                    ScrollView {
+                        ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { $recipe in
+                            if (searchString == ""){
+                                ListCell(recipe: $recipe)
+                            }else if recipe.RCP_NM.contains(searchString){
+                                ListCell(recipe: $recipe)
+                            }
+                            /*'
+                             if isBookmarkOn {
+                             if recipe.wrappedValue.isBookmark {
+                             ListCell(recipe: recipe)
+                             }
+                             } else {
+                             ListCell(recipe: recipe)
+                             }
+                             */
                         }
-                        /*'
-                         if isBookmarkOn {
-                         if recipe.wrappedValue.isBookmark {
-                         ListCell(recipe: recipe)
-                         }
-                         } else {
-                         ListCell(recipe: recipe)
-                         }
-                         */
                     }
-                }
-                .listStyle(PlainListStyle())
-                
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("레시피")
-                            .font(.largeTitle)
-                            .accessibilityAddTraits(.isHeader)
+                    .listStyle(PlainListStyle())
+                    
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text("레시피")
+                                .font(.largeTitle)
+                                .accessibilityAddTraits(.isHeader)
+                        }
                     }
+                    .navigationBarItems(trailing : Button {
+                        isBookmarkOn.toggle()
+                    } label: {
+                        Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                    })
                 }
-                .navigationBarItems(trailing : Button {
-                    isBookmarkOn.toggle()
-                } label: {
-                    Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
-                        .font(.title)
-                        .foregroundColor(.blue)
-                })
             }
-        }
-        .onTapGesture{
-            hideKeyboard()
-        }
+            .onTapGesture{
+                hideKeyboard()
+            }
     }
 }
 

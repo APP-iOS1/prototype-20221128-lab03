@@ -7,8 +7,18 @@ struct AddIngredientView: View {
 	
 	@State private var isItemSelected = false
 	@State private var isModalPresented = false
-	@State private var newIngredientArr = [NewIngredient]()
+	@State private var isReciptModalPresented = false
 	@State private var updatedNewIngredient = false
+	@State private var newIngredientArr = [NewIngredient]()
+	@State private var newReciptIngredient: [String] = ["우유", "돼지고기", "플레인요거트"]
+	
+	let gridSystem = [
+		//추가 하면 할수록 화면에 보여지는 개수가 변함
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top)
+	]
 	
 	var body: some View {
 		ScrollView {
@@ -38,19 +48,22 @@ struct AddIngredientView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
-					Button("추가하기") {
-						isModalPresented.toggle()
+					HStack{
+						Button("영수증 촬영하기"){
+							isReciptModalPresented.toggle()
+						}
+						.sheet(isPresented: $isReciptModalPresented) {
+							ReciptModalView(newIngredientArr: $newIngredientArr, isReciptModalPresented: $isReciptModalPresented)
+						}
+						
+						Button("추가하기") {
+							isModalPresented.toggle()
+						}
+						.disabled(newIngredientArr.count > 0 ? false : true)
 					}
-					.disabled(newIngredientArr.isEmpty ? true : false)
 				}
+				
 			}
-			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading:
-									Button(action: {
-				dismiss()
-			}) {
-				Image(systemName: "arrow.left")
-			})
 		}
 	}
 	

@@ -13,13 +13,12 @@ struct MoveTabView: View {
     
     var body: some View {
         TabView {
-            NavigationView{
+            NavigationStack{
 				HomeView()
             }.tabItem {
                 Image(systemName: "refrigerator.fill")
                 Text("나의 냉장고")
             }
-
 
             RecipeListView(recipeStore: recipeStore)
                 .tabItem {
