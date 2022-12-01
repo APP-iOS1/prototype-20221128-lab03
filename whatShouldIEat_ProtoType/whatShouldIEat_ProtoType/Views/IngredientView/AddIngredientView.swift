@@ -69,7 +69,7 @@ struct AddIngredientView: View {
                         isReciptModalPresented.toggle()
                     }
                     .sheet(isPresented: $isReciptModalPresented) {
-                        ReciptModalView(newIngredientArr: $newIngredientArr, isReciptModalPresented: $isReciptModalPresented)
+                        ReciptModalView(newIngredientArr: $newIngredientArr, isReciptModalPresented: $isReciptModalPresented, isModalPresendted: $isModalPresented)
                     }
                     
 					Button("추가하기") {
