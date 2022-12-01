@@ -60,8 +60,8 @@ struct RecipeParsingResult: Codable {
 
 struct EachRecipeDetail: Codable, Hashable {
     
-//    var id = UUID().uuidString
-//    var isBookmark : Bool = false
+    var id : String? = UUID().uuidString
+    var isBookmark : Bool? = false
     
 	var RCP_PARTS_DTLS: String = ""
 	var RCP_WAY2: String = ""
