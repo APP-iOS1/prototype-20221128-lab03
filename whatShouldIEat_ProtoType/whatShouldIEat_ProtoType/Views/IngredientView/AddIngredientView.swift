@@ -8,8 +8,9 @@ struct AddIngredientView: View {
 	@State private var selectedItemCounter = 0
 	@State private var isItemSelected = false
 	@State private var isModalPresented = false
-	
+	@State private var isReciptModalPresented = false
 	@State private var newIngredientArr = [NewIngredient]()
+    @State private var newReciptIngredient: [String] = ["우유", "돼지고기", "플레인요거트"]
 	
 	let gridSystem = [
 		//추가 하면 할수록 화면에 보여지는 개수가 변함
@@ -59,25 +60,35 @@ struct AddIngredientView: View {
 					}
 				}
 			}
-			.sheet(isPresented: $isModalPresented) {
-				AddIngredientDetailModalView(isModalPresented: $isModalPresented,
-											 newIngredientArr: $newIngredientArr)
-				
+
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack{
+                    Button("영수증 촬영하기"){
+                        isReciptModalPresented.toggle()
+                    }
+                    .sheet(isPresented: $isReciptModalPresented) {
+                        ReciptModalView(newIngredientArr: $newIngredientArr, isReciptModalPresented: $isReciptModalPresented, isModalPresendted: $isModalPresented)
+                    }
+                    
 					Button("추가하기") {
 						isModalPresented.toggle()
 					}
-					.disabled(selectedItemCounter > 0 ? false : true)
+                    .disabled(newIngredientArr.count > 0 ? false : true)
+                    .sheet(isPresented: $isModalPresented) {
+                        AddIngredientDetailModalView(isModalPresented: $isModalPresented,
+                                                     newIngredientArr: $newIngredientArr)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarItems(leading: Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "arrow.left")
+                        })
+                    }
 				}
 			}
-			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading: Button(action: {
-				dismiss()
-			}) {
-				Image(systemName: "arrow.left")
-			})
+			
 		}
 	}
 }

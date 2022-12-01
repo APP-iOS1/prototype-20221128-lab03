@@ -33,7 +33,7 @@ final class RecipeNetworkModel: ObservableObject {
 	}
 }
 
-struct Recipe : Codable, Identifiable {
+struct Recipe : Codable, Identifiable, Hashable {
     var id: String
     var dish: String
     var description: String
@@ -47,13 +47,13 @@ struct RecipeAPI: Codable {
 	var COOKRCP01: RecipeDetails
 }
 
-struct RecipeDetails: Codable {
+struct RecipeDetails: Codable, Hashable {
 	var total_count: String
 	var row: [EachRecipeDetail]
 	var RESULT: RecipeParsingResult
 }
 
-struct RecipeParsingResult: Codable {
+struct RecipeParsingResult: Codable, Hashable {
 	var MSG: String
 	var CODE: String
 }
