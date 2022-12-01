@@ -9,76 +9,55 @@ import SwiftUI
 import Combine
 
 struct RecipeListView: View {
-	@ObservedObject var recipeStore = RecipeStore()
+    @ObservedObject var recipeStore : RecipeStore
     @State private var searchString : String = ""
     @State private var isBookmarkOn : Bool = false
-    @State private var isDone : Bool = false
+    
     
     var body: some View {
-        
-        Group {
-            if !isDone {
-                ProgressView()
-            }
-            else {
-                NavigationView {
-                    VStack {
-                        searchBar(text: $searchString)
-                            .padding()
-                        List {
-                            ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { recipe in
-                               
+        NavigationView {
+            VStack {
+                searchBar(text: $searchString)
+                    .padding()
+                List {
+                    ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { recipe in
+                        if isBookmarkOn {
+                            if recipe.wrappedValue.isBookmark ?? false {
                                 ListCell(recipe: recipe)
-                                /*
-                                if isBookmarkOn {
-                                    if recipe.wrappedValue.isBookmark {
-                                        ListCell(recipe: recipe)
-                                    }
-                                } else {
-                                    ListCell(recipe: recipe)
-                                }
-                                */
                             }
+                        } else {
+                            ListCell(recipe: recipe)
                         }
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .principal) {
-                                Text("레시피")
-                                    .font(.largeTitle)
-                                    .accessibilityAddTraits(.isHeader)
-                            }
-                        }
-                        .navigationBarItems(trailing : Button {
-                            isBookmarkOn.toggle()
-                        } label: {
-                            Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
-                                .font(.title)
-                                .foregroundColor(.blue)
-                        })
+                         
                     }
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                var recipeNetwork = RecipeNetworkModel()
-                await recipeNetwork.parsing()
-                print("A")
-                guard let data = recipeNetwork.allRecipeData else {
-                    return
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("레시피")
+                            .font(.largeTitle)
+                            .accessibilityAddTraits(.isHeader)
+                    }
                 }
-                print("B")
-                recipeStore.recipes2 = data.COOKRCP01.row
-                isDone = true
+                .navigationBarItems(trailing : Button {
+                    isBookmarkOn.toggle()
+                } label: {
+                    Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
+                        .font(.title)
+                        .foregroundColor(.blue)
+                })
             }
         }
-        
-        
-        
-        
-        
     }
 }
+        
+        
+        
+        
+        
+        
+    
+
 
 
 struct ListCell: View {
@@ -97,8 +76,7 @@ struct ListCell: View {
                         ProgressView()
                     }
 
-//                    if recipe.isBookmark {
-                    if false {
+                    if recipe.isBookmark ?? false {
                         Image(systemName: "bookmark.fill")
                             .foregroundColor(.blue)
                             .offset(x : 35, y : -35)
@@ -193,8 +171,8 @@ struct searchBar: View {
     }
 }
 
-struct RecipeListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeListView()
-    }
-}
+//struct RecipeListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeListView()
+//    }
+//}
