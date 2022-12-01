@@ -30,38 +30,39 @@ struct RecipeDetail: View {
         let url = URL(string: encodedStr)!
         
         ScrollView {
+            // 메인 이미지
+            AsyncImage(url: URL(string: selectedRecipe.ATT_FILE_NO_MK)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(20)
+            } placeholder: {
+                ProgressView()
+            }
+            
+            // 음식 이름과 북마크 버튼
             HStack {
                 Text(selectedRecipe.RCP_NM)
                     .font(.largeTitle)
                     .bold()
                 
                 Spacer()
-           /*
+           
                 Button {
-                    selectedRecipe.isBookmark.toggle()
+                    selectedRecipe.isBookmark?.toggle()
                 } label: {
-                    Image(systemName: selectedRecipe.isBookmark ? "bookmark.fill" : "bookmark")
-                        .font(.largeTitle)
-                        .foregroundColor(.blue)
+                    if let isBookmark = selectedRecipe.isBookmark {
+                        Image(systemName: isBookmark ? "bookmark.fill" : "bookmark")
+                            .font(.largeTitle)
+                            .foregroundColor(.blue)
+                    }
                 }
-                */
             }
             
+            
             VStack(alignment: .leading, spacing: 10) {
-                AsyncImage(url: URL(string: selectedRecipe.ATT_FILE_NO_MK)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(20)
-                } placeholder: {
-                    ProgressView()
-                }
                 
-                Text(selectedRecipe.HASH_TAG)
-                    .font(.title2)
-                    .padding(.bottom, 20)
-                    .foregroundColor(.gray)
-                
+                // 인원수, 조리시간, 난이도 랜덤 값
                 HStack {
                     Image(systemName: "person.fill.questionmark")
                     Text("\(Int.random(in: 1...4))인분")
@@ -69,7 +70,6 @@ struct RecipeDetail: View {
                     Text("\(Int.random(in: 15...30))분")
                     Image(systemName: "text.book.closed.fill")
                     Text(["상","중","하"].randomElement()!)
-                    
                 }
                 .font(.title3)
                 .padding(.trailing, 10)
@@ -77,14 +77,23 @@ struct RecipeDetail: View {
                 
                 Divider()
                 
+                // MARK: 식재료 설명 파트
                 Text("식재료")
                     .font(.title)
                     .foregroundColor(.gray)
                 
-                Text(selectedRecipe.RCP_PARTS_DTLS)
-                    .font(.title3)
+                // 식재료 리스트 출력
+                let ingredientsDetails : [(name : String, yang : String)] = RecipeStore().parseIngredients(selectedRecipe.RCP_PARTS_DTLS)
+                ForEach(ingredientsDetails.indices, id: \.self) { index in
+                    let ingredient = ingredientsDetails[index]
+                    Text("\(ingredient.name) \(ingredient.yang)")
+                        .font(.title3)
+                }
                 
-                /*
+//                Text(selectedRecipe.RCP_PARTS_DTLS)
+//                    .font(.title3)
+                
+                /* 재료 아이콘 그리드
                 LazyVGrid(columns: columns) {
                     ForEach(selectedRecipe.ingredients, id: \.self) {item in
                         let icon = ingredients.filter{$0.ingredient == item}.first?.icon ?? ""
@@ -102,22 +111,29 @@ struct RecipeDetail: View {
                 
                 Divider()
                 
+                // MARK: 레시피 파트
                 Text("레시피")
                     .font(.title)
                     .foregroundColor(.gray)
+                
+                Text("미리보기")
+                    .font(.title3)
+                    .padding(.bottom,-30)
+                RecipePreviewView(selectedRecipe: $selectedRecipe)
                 
                 NavigationLink {
                     RecipeDetailPageView(selectedRecipe: $selectedRecipe)
                 } label: {
                     HStack {
                         Image(systemName: "doc.richtext")
-                        Text("레시피 보러가기")
+                            .frame(width: 30, height: 30)
+                        Text("레시피 모아보기")
                         Spacer()
                     }
                     .font(.title3)
                 }
 
-                /*
+                /* 레시피 줄글
                 VStack(alignment: .leading,spacing: 25) {
                     ForEach(0..<selectedRecipe.recipe.count, id: \.self) { index in
                         HStack(alignment: .top){
@@ -144,6 +160,7 @@ struct RecipeDetail: View {
             } label: {
                 HStack {
                     Image(systemName: "play.rectangle.fill")
+                        .frame(width: 30, height: 30)
                     Text("레시피 영상 보기")
                     Spacer()
                 }
@@ -158,6 +175,9 @@ struct RecipeDetail: View {
         }
         .padding()
         .padding(.top, -20)
+        .onAppear{
+            print(selectedRecipe.RCP_PARTS_DTLS)
+        }
     }
 }
 
@@ -165,6 +185,6 @@ struct RecipeDetail: View {
 
 //struct RecipeDetail_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RecipeDetail()
+//        RecipeDetail(selectedRecipe: EachRecipeDetail(), isRecipeMediaOn: false)
 //    }
 //}
