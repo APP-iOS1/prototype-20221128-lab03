@@ -8,25 +8,19 @@
 import Foundation
 
 struct Ingredient : Codable, Identifiable, Hashable {
-	var id = UUID().uuidString
-	var icon: String
-	var category: String
-	var ingredient: String
-	var ishave: Bool
+	public var id = UUID().uuidString
+	public var icon: String
+	public var category: String
+	public var ingredient: String
+	public var ishave: Bool
+	
 	// 각각의 감자를 따로 얼리도록 구현
-	var isFrozen: Bool = false
+	public var isFrozen: Bool = false
 	
-	// 재료를 추가한 날짜
-	// 냉장했다가 냉동으로 옮기는 경우?
-	var date: Date {
-		return Date.now
-	}
-	
-	// 기본 유통기한 5일?
-	// 카테고리에 따라 유통기한 차별화
-	var defaultDeadDate: Date {
-		return Calendar.current.date(byAdding: .day, value: 5, to: date)!
-	}
+	public var buyDate: Date?
+	public var expiredDate: Date?
+	public var addCounter: String?
+	public var ingredientUnit: IngredientUnit?
 }
 
 struct NewIngredient: Identifiable {
@@ -34,6 +28,16 @@ struct NewIngredient: Identifiable {
 	var category: String
 	var name: String
 }
+
+enum IngredientUnit: String, Identifiable, CaseIterable, Codable {
+	case piece = "개",
+		 g = "g(그램)",
+		 Kg = "kg(킬로그램)",
+		 mL = "ml(밀리리터)",
+		 L = "L(리터)"
+	var id: Self { self }
+}
+
 
 // 각 음식 데이터를 DB화 해서 앱 시동시 foodDB를 초기화
 var foodDb = [String: [String]]()
@@ -253,7 +257,7 @@ func initFoodDB() {
 		],
 		
 		"기타" : [
-			""
+			
 		]
 	]
 }
