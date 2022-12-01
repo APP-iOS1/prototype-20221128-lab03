@@ -28,17 +28,14 @@ final class IngredientStore: ObservableObject {
 		"곡물/가공류",
 		"기타"
 	]
-	
-//	init() {
-//		initDictionary()
-//    }
-	
+
 	private func initDictionary() {
 		for eachIngredients in ingredientData {
 			let key = eachIngredients.ingredient
 			
 			if ingredientsDictionary[key] == nil {
-				ingredientsDictionary.updateValue([eachIngredients], forKey: key)
+				ingredientsDictionary.updateValue([eachIngredients],
+												  forKey: key)
 			}
 		}
 	}
