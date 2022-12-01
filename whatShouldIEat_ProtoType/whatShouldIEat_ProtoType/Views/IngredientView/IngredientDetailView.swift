@@ -22,7 +22,6 @@ struct IngredientDetailView: View {
         return formatter
     }
     
-    
     var body: some View {
         VStack {
             VStack(alignment : .leading, spacing: 20) {
@@ -32,7 +31,7 @@ struct IngredientDetailView: View {
                         .frame(width: 30, height: 30)
                         .padding()
                     
-                    VStack(alignment : .leading) {
+                    VStack(alignment: .leading) {
                         Text(ingredient.ingredient)
                             .font(.title3)
                             .fontWeight(.bold)

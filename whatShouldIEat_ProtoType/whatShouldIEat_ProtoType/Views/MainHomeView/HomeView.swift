@@ -15,14 +15,13 @@ struct HomeView: View {
     ]
 
     var body: some View {
-        
-        let ingredientCount = ingredientStore.ingredients.filter { $0.ishave }.count
-        
+//        let ingredientCount = ingredientStore.ingredients.filter { $0.ishave }.count
+		let isMyIngredientEmpty = ingredientStore.ingredientsDictionary.isEmpty
+//		let isMyFrozonIngredientEmpty = ingredientStore.ingredientsDictionary.values.filter { $0. }
+		
         VStack {
             VStack(alignment: .leading) { // isHave ==  true인 재료가 보여짐
-                
-
-                if ingredientCount == 0 {
+                if isMyIngredientEmpty {
                     VStack { // 가진 재료가 없을 때
                         Spacer()
                         Text("냉장고가 텅 비어 있어요.")
@@ -36,9 +35,7 @@ struct HomeView: View {
                             .fontWeight(.semibold)
                             .frame(width: 350, height: 50, alignment: .leading)
 
-                        let freshIngredientCount = ingredientStore.ingredients.filter { !$0.isFrozen }.count
-
-                        if freshIngredientCount == 0 {
+                        if true {
                             VStack { // 냉장실에 재료가 없을 때
                                 Spacer()
                                 Text("냉장실이 텅 비어 있어요😭")
@@ -47,11 +44,20 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-                                    ForEach($ingredientStore.ingredients) { ingredient in
-                                        if ingredient.wrappedValue.ishave && !ingredient.wrappedValue.isFrozen {
-                                            IngredientCell(ingredient: ingredient)
-                                        }
-                                    }
+									ForEach(ingredientData, id: \.self) { eachIngredient in
+										let key = eachIngredient.ingredient
+										if let myIngredient = ingredientStore.ingredientsDictionary[key] {
+											ForEach(myIngredient, id: \.self) { str in
+												Text(str.ingredient)
+											}
+										}
+									}
+									
+//                                    ForEach($ingredientStore.ingredients) { ingredient in
+//                                        if ingredient.wrappedValue.ishave && !ingredient.wrappedValue.isFrozen {
+//                                            IngredientCell(ingredient: ingredient)
+//                                        }
+//                                    }
                                 }
                             }
                         }
@@ -90,7 +96,7 @@ struct HomeView: View {
 
             Spacer()
 
-            if ingredientCount > 0 {
+            if isMyIngredientEmpty {
                 Text("냉장고 털러가기")
                     .fontWeight(.bold)
                     .foregroundColor(.white)

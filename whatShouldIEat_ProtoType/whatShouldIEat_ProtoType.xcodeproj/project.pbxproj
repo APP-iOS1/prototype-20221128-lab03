@@ -31,6 +31,7 @@
 		6EE0C672291B5C3100314E01 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C670291B5C3100314E01 /* SafariView.swift */; };
 		6EE0C673291B5C3100314E01 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C671291B5C3100314E01 /* WebView.swift */; };
 		6EE0C67D291B608400314E01 /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C67C291B608400314E01 /* AddIngredientView.swift */; };
+		7061CCC22937216300ED391F /* AddIngredientDetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		6EE0C670291B5C3100314E01 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6EE0C671291B5C3100314E01 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6EE0C67C291B608400314E01 /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientDetailModalView.swift; sourceTree = "<group>"; };
 		70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 			children = (
 				6EAEFA34291C936000C96D45 /* IngredientDetailView.swift */,
 				6EE0C67C291B608400314E01 /* AddIngredientView.swift */,
+				7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */,
 			);
 			path = IngredientView;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				6EE0C672291B5C3100314E01 /* SafariView.swift in Sources */,
 				6EE0C66F291B473A00314E01 /* AvailableRecipeView.swift in Sources */,
 				6EAEFA2F291B660C00C96D45 /* RecipeData.swift in Sources */,
+				7061CCC22937216300ED391F /* AddIngredientDetailModalView.swift in Sources */,
 				6E47353C291A9C3F001166DD /* MoveTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

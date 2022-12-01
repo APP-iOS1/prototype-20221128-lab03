@@ -8,13 +8,30 @@
 import SwiftUI
 
 final class IngredientStore: ObservableObject {
-    @Published var ingredients : [Ingredient] = ingredientData
+    @Published var ingredients: [Ingredient] = ingredientData
 	@Published var ingredientsDictionary: [String: [Ingredient]] = [:]
+	
 	let recipeManager = RecipeNetworkModel()
 	
-	init () {
-		initDictionary()
-    }
+	let ingredientCategoryList: [String] = [
+		"채소/과일",
+		"버섯류",
+		"육류/달걀",
+		"콩류/견과류/두부류",
+		"유제품",
+		"김치",
+		"가루류",
+		"조미료/양념류/오일류",
+		"민물/해산물",
+		"음료류",
+		"면류",
+		"곡물/가공류",
+		"기타"
+	]
+	
+//	init() {
+//		initDictionary()
+//    }
 	
 	private func initDictionary() {
 		for eachIngredients in ingredientData {
@@ -24,12 +41,15 @@ final class IngredientStore: ObservableObject {
 				ingredientsDictionary.updateValue([eachIngredients], forKey: key)
 			}
 		}
-		dump(ingredientsDictionary)
 	}
 	
 	public func updateDictionary(eachIngredients: Ingredient) {
 		let key = eachIngredients.ingredient
-		ingredientsDictionary[key]?.append(eachIngredients)
+		if ingredientsDictionary[key] == nil {
+			ingredientsDictionary.updateValue([eachIngredients], forKey: key)
+		} else {
+			ingredientsDictionary[key]?.append(eachIngredients)
+		}		
 	}
     
     public func doSomething() {
