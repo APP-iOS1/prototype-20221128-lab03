@@ -5,19 +5,18 @@ struct AddIngredientView: View {
 	@ObservedObject var ingredientStore: IngredientStore
 	@Environment(\.dismiss) private var dismiss
 	
-	let categoryList: [String] = [
-		"채소/과일",
-		"버섯류",
-		"육류/달걀",
-		"콩류/견과류/두부류",
-		"유제품",
-		"김치",
-		"가루류",
-		"조미료/양념/오일",
-		"민물/해산물",
-		"음료류",
-		"면류",
-		"곡물/가공류",
+	@State private var selectedItemCounter = 0
+	@State private var isItemSelected = false
+	@State private var isModalPresented = false
+	
+	@State private var newIngredientArr = [NewIngredient]()
+	
+	let gridSystem = [
+		//추가 하면 할수록 화면에 보여지는 개수가 변함
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top),
+		GridItem(.flexible(), spacing: 7.5, alignment: .top)
 	]
 	
 	var body: some View {
@@ -27,94 +26,176 @@ struct AddIngredientView: View {
 				.bold()
 				.padding()
 			
-			VStack(alignment: .leading, spacing: 50) {
+			// 나중에 서치뷰 구현
+			// SearchView()
+			
+			VStack(alignment: .leading, spacing: 20) {
+				ForEach(ingredientStore.ingredientCategoryList, id: \.self) { categoryKey in
+					// categoryKey == Header, DictionaryKey
+					HStack {
+						Text(categoryKey)
+							.font(.title2)
+							.foregroundColor(.blue)
+							.fontWeight(.bold)
+						
+						Spacer()
+						
+						Text("\(selectedItemCounter)" + "개 선택됨")
+					}
+					.padding(.horizontal)
+					
+					Divider()
+					
+					if let foodDBArray = foodDb[categoryKey] {
+						LazyVGrid(columns: gridSystem) {
+							ForEach(foodDBArray, id: \.self) { eachFoodName in
+								FoodLazyVGridView(eachFoodName: eachFoodName,
+												  category: categoryKey,
+												  foodDBArray: foodDBArray,
+												  selectedItemCounter: $selectedItemCounter,
+												  newIngredientArr: $newIngredientArr)
+							}
+						}
+					}
+				}
+			}
+			.sheet(isPresented: $isModalPresented) {
+				AddIngredientDetailModalView(isModalPresented: $isModalPresented,
+											 newIngredientArr: $newIngredientArr)
 				
-				ForEach(categoryList, id: \.self) { category in
-					CategoryAndIngredientsView(ingredientStore: ingredientStore, category: category)
-						.padding([.leading, .trailing])
+			}
+			.toolbar {
+				ToolbarItem(placement: .navigationBarTrailing) {
+					Button("추가하기") {
+						isModalPresented.toggle()
+					}
+					.disabled(selectedItemCounter > 0 ? false : true)
 				}
 			}
+			.navigationBarBackButtonHidden(true)
+			.navigationBarItems(leading: Button(action: {
+				dismiss()
+			}) {
+				Image(systemName: "arrow.left")
+			})
 		}
-		.toolbar {
-			ToolbarItem(placement: .navigationBarTrailing) {
-				Button("추가하기") {
-					dismiss()
-				}
-			}
-		}
-		.navigationBarBackButtonHidden(true)
-		.navigationBarItems(leading: Button(action: {
-			dismiss()
-		}) {
-			Image(systemName: "arrow.left")
-		})
 	}
+}
+
+struct FoodLazyVGridView: View {
+	let eachFoodName: String
+	let category: String
 	
-    struct CategoryAndIngredientsView: View {
-        @ObservedObject var ingredientStore: IngredientStore
-        @State private var counter: Int = 0
-        
-        let category: String
-        
-        let columns = [
-            //추가 하면 할수록 화면에 보여지는 개수가 변함
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-        
-        var body: some View {
-            HStack { // 각 카테고리의 제목 및 선택된 재료의 개수 표시
-                Text(category)
-                    .font(.title2)
-                    .foregroundColor(.blue)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                Text("\(counter)개 선택됨")
-            }
-            
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach($ingredientStore.ingredients) { ingredient in
-                        if ingredient.wrappedValue.category == category {
-                            CombinationIngredientView(ingredient: ingredient, counter: $counter)
-                        }
-                    }
-                }
-            }
-        }
-    }
+	@State var foodDBArray: [String]
+	@State private var isItemSelected: Bool = false
+	@Binding var selectedItemCounter: Int
+	@Binding var newIngredientArr: [NewIngredient]
+	
+	var body: some View {
+		VStack(spacing: 15) {
+			Image(systemName: "star")
+				.resizable()
+				.frame(width: 30, height: 30)
+			
+			Text(eachFoodName)
+				.frame(width: 90, height: 25)
+		}
+		.padding(.vertical, 3)
+		.opacity(isItemSelected ? 1 : 0.7)
+		.onTapGesture {
+			isItemSelected.toggle()
+			
+			if isItemSelected {
+				selectedItemCounter += 1
+				newIngredientArr.append(NewIngredient(category: category,
+													  name: eachFoodName))
+			} else {
+				selectedItemCounter -= 1
+				for index in 0 ..< newIngredientArr.count {
+					if newIngredientArr[index].name == eachFoodName {
+						newIngredientArr.remove(at: index)
+						break
+					}
+				}
+			}
+		}
+	}
 }
 
-struct CombinationIngredientView: View {
-    @Binding var ingredient: Ingredient
-    @Binding var counter: Int
-    @State private var isSelected: Bool = false
-    
-    var body: some View {
-        VStack {
-            Image(ingredient.icon)
-                .resizable().frame(width: 50, height: 50)
-                .opacity(isSelected ? 1 : 0.5)
-                .onTapGesture {
-                    if isSelected {
-                        counter -= 1
-                    } else {
-                        counter += 1
-                    }
-                    isSelected.toggle()
-                    ingredient.ishave.toggle()
-                }
-            Text(ingredient.ingredient)
-        }
-    }
-}
-
-struct AddIngredientView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddIngredientView(ingredientStore: IngredientStore())
-    }
-}
+//
+//
+//struct CategoryAndIngredientsGridView: View {
+//	@ObservedObject var ingredientStore: IngredientStore
+//	@State private var counter: Int = 0
+//
+//	let category: String
+//
+//	let columns = [
+//		//추가 하면 할수록 화면에 보여지는 개수가 변함
+//		GridItem(.flexible()),
+//		GridItem(.flexible()),
+//		GridItem(.flexible()),
+//		GridItem(.flexible())
+//	]
+//
+//	var body: some View {
+//		HStack { // 각 카테고리의 제목 및 선택된 재료의 개수 표시
+//			Text(category)
+//				.font(.title2)
+//				.foregroundColor(.blue)
+//				.fontWeight(.bold)
+//
+//			Spacer()
+//
+//			Text("\(counter)개 선택됨")
+//		}
+//
+//		ScrollView {
+//			LazyVGrid(columns: columns) {
+//				ForEach($ingredientStore.ingredients) { ingredient in
+//					if ingredient.wrappedValue.category == category,
+//					   let eachFood = foodDb[category] {
+//						ForEach(eachFood, id: \.self) { eachFoodNames in
+//							Text(eachFoodNames)
+//						}
+//						let _ = print(eachFood, ingredientStore.ingredients)
+//						//
+//						//						CombinationIngredientView(ingredient: ingredient,
+//						//												  counter: $counter)
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
+//
+//struct CombinationIngredientView: View {
+//	@Binding var ingredient: Ingredient
+//	@Binding var counter: Int
+//	@State private var isSelected: Bool = false
+//
+//	var body: some View {
+//		VStack {
+//			Image(ingredient.icon)
+//				.resizable().frame(width: 50, height: 50)
+//				.opacity(isSelected ? 1 : 0.5)
+//				.onTapGesture {
+//					if isSelected {
+//						counter -= 1
+//					} else {
+//						counter += 1
+//					}
+//					isSelected.toggle()
+//					ingredient.ishave.toggle()
+//				}
+//
+//			Text(ingredient.ingredient)
+//		}
+//	}
+//}
+//
+//struct AddIngredientView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		AddIngredientView(ingredientStore: IngredientStore())
+//	}
+//}

@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Ingredient : Codable, Identifiable {
+struct Ingredient : Codable, Identifiable, Hashable {
 	var id = UUID().uuidString
 	var icon: String
 	var category: String
 	var ingredient: String
 	var ishave: Bool
 	// 각각의 감자를 따로 얼리도록 구현
-	var isFrozen: Bool
+	var isFrozen: Bool = false
 	
 	// 재료를 추가한 날짜
 	// 냉장했다가 냉동으로 옮기는 경우?
@@ -23,9 +23,16 @@ struct Ingredient : Codable, Identifiable {
 	}
 	
 	// 기본 유통기한 5일?
+	// 카테고리에 따라 유통기한 차별화
 	var defaultDeadDate: Date {
 		return Calendar.current.date(byAdding: .day, value: 5, to: date)!
 	}
+}
+
+struct NewIngredient: Identifiable {
+	var id = UUID().uuidString
+	var category: String
+	var name: String
 }
 
 // 각 음식 데이터를 DB화 해서 앱 시동시 foodDB를 초기화
@@ -33,7 +40,7 @@ var foodDb = [String: [String]]()
 
 func initFoodDB() {
 	foodDb = [
-		"채소/과일" : [
+		"채소/과일": [
 			"가지",
 			"감자",
 			"건미역",
@@ -243,6 +250,10 @@ func initFoodDB() {
 			"쌀겨",
 			"조랭이떡",
 			"찹쌀"
+		],
+		
+		"기타" : [
+			""
 		]
 	]
 }
