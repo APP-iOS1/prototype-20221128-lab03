@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor(Color(.systemGray6))
+        }
+    
     @ObservedObject var recipeStore = RecipeStore()
 
     var body: some View {
