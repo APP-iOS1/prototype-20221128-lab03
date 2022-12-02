@@ -27,7 +27,7 @@ struct ReciptModalView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 250)
                     }
-                    
+                    Spacer()
 //                    Button {
 //                        //                    if selectedImage != nil{
 //                        //                        isImage.toggle()
@@ -50,15 +50,15 @@ struct ReciptModalView: View {
                             Image(systemName: "photo.on.rectangle.angled")
                             Text((selectedImage != nil) ? "다시 첨부하기" : "사진으로 첨부하기")
                         }
-                        .foregroundColor(.black)
-                        .padding()
+                        .frame(width: 300, height: 45)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke(.black, lineWidth: 1.8)
-                                .frame(width: 300, height: 45)
                         )
+                        .foregroundColor(.black)
+                        .padding()
                     }
-                    Spacer()
+                    .padding()
                     if selectedImage != nil{
                         VStack{
                             HStack{
