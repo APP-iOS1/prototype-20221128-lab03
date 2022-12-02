@@ -18,7 +18,6 @@ struct Ingredient : Codable, Identifiable, Hashable {
 
     public var saveWhere : SaveWhere
 
-	
 	public var buyDate: Date?
 	public var expiredDate: Date?
 	public var addCounter: String?
@@ -39,10 +38,10 @@ struct NewIngredient: Identifiable {
 
 enum IngredientUnit: String, Identifiable, CaseIterable, Codable {
 	case piece = "개",
-		 g = "g(그램)",
-		 Kg = "kg(킬로그램)",
-		 mL = "ml(밀리리터)",
-		 L = "L(리터)"
+		 g = "g",
+		 Kg = "Kg",
+		 mL = "mL",
+		 L = "L"
 	var id: Self { self }
 }
 

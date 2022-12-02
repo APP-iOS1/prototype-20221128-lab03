@@ -37,6 +37,7 @@
 		6EE0C673291B5C3100314E01 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C671291B5C3100314E01 /* WebView.swift */; };
 		6EE0C67D291B608400314E01 /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C67C291B608400314E01 /* AddIngredientView.swift */; };
 		7061CCC22937216300ED391F /* AddIngredientDetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */; };
+		70EBBB722939B8D700932FF5 /* EachAddIngredientViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBBB712939B8D700932FF5 /* EachAddIngredientViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		6EE0C67C291B608400314E01 /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 		7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientDetailModalView.swift; sourceTree = "<group>"; };
 		70CD14292935A4E6002DA3F9 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
+		70EBBB712939B8D700932FF5 /* EachAddIngredientViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachAddIngredientViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				6EAEFA34291C936000C96D45 /* IngredientDetailView.swift */,
 				6EE0C67C291B608400314E01 /* AddIngredientView.swift */,
 				7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */,
+				70EBBB702939B8BC00932FF5 /* AddIngredientComponent */,
 				2C9D6FC52938807C001808BB /* ReciptModalView.swift */,
 			);
 			path = IngredientView;
@@ -219,6 +222,14 @@
 				6EE0C671291B5C3100314E01 /* WebView.swift */,
 			);
 			path = WebView;
+			sourceTree = "<group>";
+		};
+		70EBBB702939B8BC00932FF5 /* AddIngredientComponent */ = {
+			isa = PBXGroup;
+			children = (
+				70EBBB712939B8D700932FF5 /* EachAddIngredientViewCell.swift */,
+			);
+			path = AddIngredientComponent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 				6EDFA075291A0DF000A542F4 /* ContentView.swift in Sources */,
 				6EE0C673291B5C3100314E01 /* WebView.swift in Sources */,
 				6E18B8DF293713620051E682 /* RecipeDetailPageView.swift in Sources */,
+				70EBBB722939B8D700932FF5 /* EachAddIngredientViewCell.swift in Sources */,
 				6EAEFA35291C936000C96D45 /* IngredientDetailView.swift in Sources */,
 				2C9D6FC62938807C001808BB /* ReciptModalView.swift in Sources */,
 				6E47353B291A9C3F001166DD /* RecipeDetail.swift in Sources */,
