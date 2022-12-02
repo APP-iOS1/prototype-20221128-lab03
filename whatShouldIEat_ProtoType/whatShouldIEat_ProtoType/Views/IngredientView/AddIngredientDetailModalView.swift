@@ -45,7 +45,9 @@ struct EachAddIngredientViewCell: View {
 	
 	@State private var checkUsersInputToTransition = false
 	@State private var buyDate: Date = Date.now
-	@State private var expiredDate: Date = Calendar.current.date(byAdding: .day, value: 5, to: .now)!
+	@State private var expiredDate: Date = // ingredientManager.expiredDate
+	Calendar.current.date(byAdding: .day, value: 5, to: .now)!
+	
 	@State private var isFrozen: Bool = false
 	
 	@State private var addCounter: String = "" {

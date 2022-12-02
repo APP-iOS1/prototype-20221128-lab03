@@ -18,7 +18,9 @@ struct Ingredient : Codable, Identifiable, Hashable {
 	public var isFrozen: Bool = false
 	
 	public var buyDate: Date?
-	public var expiredDate: Date?
+	public var expiredDate: Date? {
+		// buyDate에 카테고리 스위치 걸어서 리턴
+	}
 	public var addCounter: String?
 	public var ingredientUnit: IngredientUnit?
 }
