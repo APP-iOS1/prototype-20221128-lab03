@@ -139,7 +139,7 @@ struct FoodLazyVGridView: View {
 	
 	var body: some View {
 		VStack(spacing: 15) {
-			Image(systemName: "star")
+			Image(categoryImageDB[category]!)
 				.resizable()
 				.frame(width: 30, height: 30)
 				.onTapGesture {
@@ -164,7 +164,7 @@ struct FoodLazyVGridView: View {
 				.frame(width: 90, height: 25)
 		}
 		.padding(.vertical, 3)
-		.opacity(isItemSelected ? 1 : 0.7)
+		.opacity(isItemSelected ? 1 : 0.4)
 	}
 }
 
