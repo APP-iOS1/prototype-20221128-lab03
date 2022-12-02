@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct IngredientDetailView: View {
+    @EnvironmentObject var ingredientStore : IngredientStore
     @State var expDate = Date()
     @State var isDateOn : Bool = false
-
     @Binding var isShowing : Bool
     @Binding var ingredient : Ingredient
     
     //데이터 포멧 설정
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-//        formatter.dateStyle = .long
         formatter.locale = Locale(identifier: "ko_kR")
         formatter.timeZone = TimeZone(abbreviation: "KST")
         formatter.dateFormat = "yyyy년 MM월 dd일"
@@ -25,6 +24,9 @@ struct IngredientDetailView: View {
     }
     
     var body: some View {
+        
+        let saveWhereList = IngredientStore().ingredientSaveWhereList
+        
         VStack {
             VStack(alignment : .leading, spacing: 20) {
                 HStack {
@@ -46,16 +48,16 @@ struct IngredientDetailView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.blue)
                                 .cornerRadius(20)
-                            if ingredient.isFrozen {
-                                Text("냉동")
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 5)
-                                    .background(Color("lightBlue"))
-                                    .fontWeight(.black)
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.blue)
-                                    .cornerRadius(20)
-                            }
+                            
+                            Text(ingredient.saveWhere.rawValue)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 5)
+                                .background(Color("lightBlue"))
+                                .fontWeight(.black)
+                                .font(.system(size: 12))
+                                .foregroundColor(.blue)
+                                .cornerRadius(20)
+                            
                            
                         }
                         
@@ -98,18 +100,16 @@ struct IngredientDetailView: View {
                             .font(.system(size: 15))
                             .foregroundColor(.black)
                             .cornerRadius(5)
-                            .opacity(ingredient.isFrozen ? 0.1 : 1)
+                            .opacity(ingredient.saveWhere == .frozen ? 0.1 : 1)
                             .onTapGesture {
-                                if !ingredient.isFrozen {
+                                if ingredient.saveWhere != .frozen {
                                     isDateOn = true
                                 }
                             }
                             .sheet(isPresented: $isDateOn) {
                                 DatePickerView(expDate: $expDate)
                                     .presentationDetents([.medium])
-                                
                             }
-
                     }
 					.padding(.trailing, 20)
                     
@@ -132,10 +132,13 @@ struct IngredientDetailView: View {
                     }
                     
                     HStack {
-                        Toggle(isOn: $ingredient.isFrozen) {
-                            HStack {
-                                Image(systemName: "snowflake")
-                                Text("냉동실 보관")
+                        Label("보관 방법", systemImage: "snowflake")
+                        
+                        Spacer()
+                        
+                        Picker("", selection: $ingredient.saveWhere) {
+                            ForEach(saveWhereList, id: \.self ) { saveWhere in
+                                Text(saveWhere.rawValue)
                             }
                         }
                         .padding(.trailing, 30)
@@ -148,7 +151,10 @@ struct IngredientDetailView: View {
             Spacer()
             
             Button {
-                ingredient.ishave = false
+                // 감자 배열에서 이 감자와 같은 id를 찾아서 삭제하는 로직
+                ingredientStore
+                    .ingredientsDictionary[ingredient.ingredient]!
+                    .remove(at : ingredientStore.getIngredientIndex(ingredient: ingredient))
                 isShowing = false
             } label: {
                 HStack {
@@ -157,8 +163,13 @@ struct IngredientDetailView: View {
                 }
             }
             .padding(.bottom, 50)
-            
-            
+        }
+        .onDisappear{
+            // 보관 방법이 변경되었을때, ingredientDictionary에 반영
+            // 해당 재료를 삭제하면 Index 문제가 일어나기 때문에, 재료가 ingredientDictionary에 존재하는지 체크 후 반영함
+            if !ingredientStore.ingredientsDictionary[ingredient.ingredient]!.enumerated().filter{$0.element.id == ingredient.id}.isEmpty {
+                ingredientStore.ingredientsDictionary[ingredient.ingredient]![ingredientStore.getIngredientIndex(ingredient: ingredient)].saveWhere = ingredient.saveWhere
+            }
         }
     }
 }
