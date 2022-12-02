@@ -43,6 +43,7 @@ struct EachAddIngredientViewCell: View {
 	let eachIngredient: NewIngredient
 	let categoryList: [String]
     let saveWhereList : [Ingredient.SaveWhere]
+    
 	
 	@EnvironmentObject var ingredientManager: IngredientStore
 	@Binding var isModalPresented: Bool
