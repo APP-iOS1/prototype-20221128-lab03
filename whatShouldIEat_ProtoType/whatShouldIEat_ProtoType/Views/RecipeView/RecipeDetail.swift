@@ -90,23 +90,6 @@ struct RecipeDetail: View {
                         .font(.title3)
                 }
                 
-//                Text(selectedRecipe.RCP_PARTS_DTLS)
-//                    .font(.title3)
-                
-                /* 재료 아이콘 그리드
-                LazyVGrid(columns: columns) {
-                    ForEach(selectedRecipe.ingredients, id: \.self) {item in
-                        let icon = ingredients.filter{$0.ingredient == item}.first?.icon ?? ""
-                        VStack {
-                            Image(icon)
-                                .resizable()
-                                .frame(width : 30, height: 30)
-                            Text(item)
-                                .font(.title3)
-                        }
-                    }
-                }
-                 */
                 
                 
                 Divider()
