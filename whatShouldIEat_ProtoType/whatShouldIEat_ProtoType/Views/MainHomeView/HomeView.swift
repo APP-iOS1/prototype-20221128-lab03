@@ -190,6 +190,7 @@ struct IngredientCell: View {
         }
         .sheet(isPresented: $isShowing) {
             IngredientDetailView(
+                expDate: ingredient.expiredDate ?? Date(),
                 isShowing: $isShowing,
                 ingredient: $ingredient
             )
