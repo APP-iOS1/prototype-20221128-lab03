@@ -28,6 +28,8 @@ final class IngredientStore: ObservableObject {
 		"곡물/가공류",
 		"기타"
 	]
+    
+    let ingredientSaveWhereList : [Ingredient.SaveWhere] = [.refrigeration, .frozen, .roomTemperature]
 
 	private func initDictionary() {
 		for eachIngredients in ingredientData {
@@ -51,6 +53,35 @@ final class IngredientStore: ObservableObject {
         print(ingredientsDictionary)
         print("-------")
 	}
+    
+    // 전달받은 재료의 id와 같은 재료를 배열에서 찾아서 인덱스를 반환하는 함수
+    func getIngredientIndex(ingredient : Ingredient) -> Int {
+        if let ingredients = ingredientsDictionary[ingredient.ingredient] {
+            if !ingredients.isEmpty {
+                return ingredients.enumerated().filter{$0.element.id == ingredient.id}.first!.offset
+            }
+        }
+        return 0
+    }
+    
+    // 현재 보유중인 모든 재료를 1차원으로 담아서 반환하는 함수
+    func getMyIngredients() -> [Ingredient] {
+        var ingredients : [Ingredient] = []
+        for name in ingredientsDictionary {
+            for ingredient in name.value {
+                ingredients.append(ingredient)
+            }
+        }
+        return ingredients
+    }
+    
+    // 레시피에 있는 필요 재료 리스트를 내 보유 재료와 비교하여 모두 가지고 있는지 여부
+    func isHaveAllNeedIngredients(needIngredientsName : [String]) -> Bool {
+        let myIngredients = getMyIngredients().map{$0.ingredient}
+        return needIngredientsName.filter{name in
+            return !myIngredients.contains(name)
+        }.isEmpty
+    }
     
     public func doSomething() {
         var ssub: Set<String> = Set<String>()
