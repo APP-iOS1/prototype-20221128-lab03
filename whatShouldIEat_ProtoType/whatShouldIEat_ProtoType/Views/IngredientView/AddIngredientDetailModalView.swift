@@ -19,12 +19,16 @@ struct AddIngredientDetailModalView: View {
 	
 	var body: some View {
 		let ingredientCategoryList = ingredientManager.ingredientCategoryList
+        let ingredientSaveWhereList = ingredientManager.ingredientSaveWhereList
 		
 		if !newIngredientArr.isEmpty {
 			ScrollView {
 				ForEach(newIngredientArr) { ingredient in
 					EachAddIngredientViewCell(eachIngredient: ingredient,
-											  categoryList: ingredientCategoryList, isModalPresented: $isModalPresented, updatedNewIngredient: $updatedNewIngredient)
+											  categoryList: ingredientCategoryList,
+                                              saveWhereList: ingredientSaveWhereList,
+                                              isModalPresented: $isModalPresented,
+                                              updatedNewIngredient: $updatedNewIngredient)
 					.padding()
 				}
 			}
@@ -38,6 +42,7 @@ struct AddIngredientDetailModalView: View {
 struct EachAddIngredientViewCell: View {
 	let eachIngredient: NewIngredient
 	let categoryList: [String]
+    let saveWhereList : [Ingredient.SaveWhere]
 	
 	@EnvironmentObject var ingredientManager: IngredientStore
 	@Binding var isModalPresented: Bool
@@ -46,7 +51,8 @@ struct EachAddIngredientViewCell: View {
 	@State private var checkUsersInputToTransition = false
 	@State private var buyDate: Date = Date.now
 	@State private var expiredDate: Date = Calendar.current.date(byAdding: .day, value: 5, to: .now)!
-	@State private var isFrozen: Bool = false
+    @State private var saveWhere : Ingredient.SaveWhere = .refrigeration
+	
 	
 	@State private var addCounter: String = "" {
 		didSet {
@@ -72,13 +78,12 @@ struct EachAddIngredientViewCell: View {
 				
 				Spacer()
 				
-				Button {
-					updateNewIngredient()
-					self.isModalPresented = false
-					self.updatedNewIngredient = true
-				} label: {
-					Text("추가하기")
-				}
+                Button("추가하기") {
+                    updateNewIngredient()
+                    self.isModalPresented = false
+                    self.updatedNewIngredient = true
+                }
+                .disabled(addCounter.isEmpty)
 			}
 			.padding()
 			
@@ -130,9 +135,15 @@ struct EachAddIngredientViewCell: View {
 				}
 				
 				HStack {
-					Text("냉동 여부 : ")
+					Text("보관 방법 : ")
+                    
+                    Spacer()
 					
-					Toggle("", isOn: $isFrozen)
+                    Picker("", selection: $saveWhere) {
+                        ForEach(saveWhereList, id: \.self) {saveWhere in
+                            Text(saveWhere.rawValue)
+                        }
+                    }
 				}
 				
 				HStack {
@@ -189,7 +200,7 @@ struct EachAddIngredientViewCell: View {
 	
 	private func updateNewIngredient() {
 		ingredientManager.updateDictionary(
-			eachIngredients: Ingredient(icon: "star", category: usersCategory, ingredient: eachIngredient.name, ishave: true, isFrozen: isFrozen, buyDate: buyDate, expiredDate: expiredDate, addCounter: addCounter, ingredientUnit: ingredientUnit))
+            eachIngredients: Ingredient(icon: categoryImageDB[eachIngredient.category] ?? "guitar", category: usersCategory, ingredient: eachIngredient.name, ishave: true, saveWhere: saveWhere, buyDate: buyDate, expiredDate: expiredDate, addCounter: addCounter, ingredientUnit: ingredientUnit))
 		print("Modal", ingredientManager.ingredientsDictionary)
 	}
 }
