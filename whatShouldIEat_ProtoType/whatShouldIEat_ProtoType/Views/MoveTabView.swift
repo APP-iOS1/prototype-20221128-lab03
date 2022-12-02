@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MoveTabView: View {
 	@EnvironmentObject var ingredientManager: IngredientStore
-	@ObservedObject var recipeStore = RecipeStore()
+    @ObservedObject var recipeStore : RecipeStore
     @State var tagSelection : Int = 0
     @State var isAvailableRecipes : Bool = false
 
@@ -35,35 +35,12 @@ struct MoveTabView: View {
                     Text("레시피")
                 }
                 .tag(1)
-            }
-            .onAppear {
-                Task {
-                    let recipeNetwork = RecipeNetworkModel()
-                    await recipeNetwork.parsing()
-                    guard let data = recipeNetwork.allRecipeData else {
-                        return
-                    }
-                    recipeStore.recipes2 = data.COOKRCP01.row
-                }
-            }
-        
-        .onAppear {
-            Task {
-                var recipeNetwork = RecipeNetworkModel()
-                await recipeNetwork.parsing()
-                print("A")
-                guard let data = recipeNetwork.allRecipeData else {
-                    return
-                }
-                print("B")
-                recipeStore.recipes2 = data.COOKRCP01.row
-            }
         }
     }
 }
 
 struct MoveTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MoveTabView()
+        MoveTabView(recipeStore: RecipeStore())
     }
 }
