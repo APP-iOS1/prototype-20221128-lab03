@@ -28,21 +28,7 @@ struct ReciptModalView: View {
                             .frame(width: 250)
                     }
                     Spacer()
-//                    Button {
-//                        //                    if selectedImage != nil{
-//                        //                        isImage.toggle()
-//                        //                    }
-//                    } label: {
-//                        Image(systemName: "camera")
-//                        Text("영수증 촬영하기")
-//                    }
-//                    .bold()
-//                    .foregroundColor(.white)
-//                    .frame(width: 300, height: 45)
-//                    .background(Color(red: 0.997, green: 0.681, blue: 0.0))
-//                    .cornerRadius(30)
-//                    .padding()
-                    
+                                        
                     Button {
                         self.imagePickerVisible.toggle()
                     } label: {

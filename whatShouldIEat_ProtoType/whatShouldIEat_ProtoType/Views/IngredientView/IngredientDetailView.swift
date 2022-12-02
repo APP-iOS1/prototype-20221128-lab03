@@ -46,7 +46,7 @@ struct IngredientDetailView: View {
                                 .background(Color("lightOrange"))
                                 .fontWeight(.bold)
                                 .font(.system(size: 12))
-                                .foregroundColor(.blue)
+								.foregroundColor(Color.accentColor)
                                 .cornerRadius(20)
                             
                             Text(ingredient.saveWhere.rawValue)
@@ -55,7 +55,7 @@ struct IngredientDetailView: View {
                                 .background(Color("lightBlue"))
                                 .fontWeight(.black)
                                 .font(.system(size: 12))
-                                .foregroundColor(.blue)
+								.foregroundColor(Color.accentColor)
                                 .cornerRadius(20)
                             
                            

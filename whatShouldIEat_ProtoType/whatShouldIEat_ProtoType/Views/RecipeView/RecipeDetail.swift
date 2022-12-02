@@ -161,7 +161,6 @@ struct RecipeDetail: View {
         .padding(.top, -20)
         .onAppear{
             print(selectedRecipe.RCP_PARTS_DTLS)
-            print(selectedRecipe.isBookmark)
         }
     }
 }

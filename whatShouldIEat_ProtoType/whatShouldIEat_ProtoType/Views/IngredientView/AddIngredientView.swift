@@ -141,7 +141,7 @@ struct EachSectionHeaderView: View {
 		HStack {
 			Text(category)
 				.font(.title2)
-				.foregroundColor(.blue)
+				.foregroundColor(Color.accentColor)
 				.fontWeight(.bold)
 			
 			Spacer()

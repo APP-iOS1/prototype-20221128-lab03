@@ -151,7 +151,7 @@ struct HomeView: View {
         .navigationBarItems(trailing: NavigationLink {
             AddIngredientView(ingredientStore: ingredientStore)
         } label: {
-            Image(systemName: "plus").foregroundColor(.blue)
+			Image(systemName: "plus").foregroundColor(Color.accentColor)
         })
     }
     private var goToAvailableRecipeView : some View {
@@ -159,7 +159,7 @@ struct HomeView: View {
             .fontWeight(.bold)
             .foregroundColor(.white)
             .frame(width: 150, height: 40)
-            .background(Color.blue)
+            .background(Color.accentColor)
             .cornerRadius(20)
             .onTapGesture {
                 isAvailableRecipes = true
