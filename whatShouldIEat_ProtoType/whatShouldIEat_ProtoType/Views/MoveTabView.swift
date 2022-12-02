@@ -10,20 +10,27 @@ import SwiftUI
 struct MoveTabView: View {
 	@EnvironmentObject var ingredientManager: IngredientStore
 	@ObservedObject var recipeStore = RecipeStore()
+    @State var tagSelection : Int = 0
+    @State var isAvailableRecipes : Bool = false
     
     var body: some View {
-        TabView {
+        TabView(selection : $tagSelection) {
             NavigationStack{
-				HomeView()
+				HomeView(isAvailableRecipes: $isAvailableRecipes,
+                         tabSelection: $tagSelection)
             }.tabItem {
                 Image(systemName: "refrigerator.fill")
                 Text("나의 냉장고")
             }
-            RecipeListView(recipeStore: recipeStore)
+            .tag(0)
+            
+            RecipeListView(recipeStore: recipeStore,
+                           isAvailableRecipes: $isAvailableRecipes)
                 .tabItem {
                 Image(systemName: "doc.text.image")
                 Text("레시피")
             }
+            .tag(1)
         }
         .onAppear {
             Task {
