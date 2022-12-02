@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IngredientDetailView: View {
     @EnvironmentObject var ingredientStore : IngredientStore
-    @State var expDate = Date()
+    @State var expDate : Date
     @State var isDateOn : Bool = false
     @Binding var isShowing : Bool
     @Binding var ingredient : Ingredient
@@ -46,7 +46,7 @@ struct IngredientDetailView: View {
                                 .background(Color("lightOrange"))
                                 .fontWeight(.bold)
                                 .font(.system(size: 12))
-                                .foregroundColor(.blue)
+								.foregroundColor(Color.accentColor)
                                 .cornerRadius(20)
                             
                             Text(ingredient.saveWhere.rawValue)
@@ -55,7 +55,7 @@ struct IngredientDetailView: View {
                                 .background(Color("lightBlue"))
                                 .fontWeight(.black)
                                 .font(.system(size: 12))
-                                .foregroundColor(.blue)
+								.foregroundColor(Color.accentColor)
                                 .cornerRadius(20)
                             
                            
@@ -74,10 +74,10 @@ struct IngredientDetailView: View {
                         
                         Spacer()
                         
-//                        Text(Date.now, style: .date)
-                        Text("\(Date.now, formatter: dateFormatter)")
+                        Text("\(ingredient.buyDate ?? Date() , formatter: dateFormatter)")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
+                            .frame(width : 160)
                             .background(Color(UIColor.systemGray6))
                             .font(.system(size: 15))
                             .foregroundColor(Color("fixdataColor"))
@@ -95,7 +95,7 @@ struct IngredientDetailView: View {
                         Text("\(expDate, formatter: dateFormatter)")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
-//                            .frame(width : 155)
+                            .frame(width : 160)
                             .background(.yellow)
                             .font(.system(size: 15))
                             .foregroundColor(.black)
@@ -109,7 +109,7 @@ struct IngredientDetailView: View {
                             .sheet(isPresented: $isDateOn) {
                                 DatePickerView(expDate: $expDate)
                                     .presentationDetents([.medium])
-                                    
+                                
                             }
                     }
 					.padding(.trailing, 20)
@@ -168,8 +168,9 @@ struct IngredientDetailView: View {
         .onDisappear{
             // 보관 방법이 변경되었을때, ingredientDictionary에 반영
             // 해당 재료를 삭제하면 Index 문제가 일어나기 때문에, 재료가 ingredientDictionary에 존재하는지 체크 후 반영함
-            if !ingredientStore.ingredientsDictionary[ingredient.ingredient]!.enumerated().filter{$0.element.id == ingredient.id}.isEmpty {
+            if !ingredientStore.ingredientsDictionary[ingredient.ingredient]!.enumerated().filter({$0.element.id == ingredient.id}).isEmpty {
                 ingredientStore.ingredientsDictionary[ingredient.ingredient]![ingredientStore.getIngredientIndex(ingredient: ingredient)].saveWhere = ingredient.saveWhere
+                ingredientStore.ingredientsDictionary[ingredient.ingredient]![ingredientStore.getIngredientIndex(ingredient: ingredient)].expiredDate = expDate
             }
         }
     }
@@ -181,7 +182,7 @@ struct DatePickerView : View {
     
     var body: some View {
         DatePicker("날짜를 선택하세요", selection: $expDate, in: Date()..., displayedComponents: .date)
-            .datePickerStyle(.wheel)
+            .datePickerStyle(GraphicalDatePickerStyle())
             .labelsHidden()
             .environment(\.locale, Locale.init(identifier: "ko"))
     }

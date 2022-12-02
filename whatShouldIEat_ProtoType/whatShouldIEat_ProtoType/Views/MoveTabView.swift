@@ -12,42 +12,29 @@ struct MoveTabView: View {
     @ObservedObject var recipeStore : RecipeStore
     @State var tagSelection : Int = 0
     @State var isAvailableRecipes : Bool = false
-    
+
     var body: some View {
+        
         TabView(selection : $tagSelection) {
-            NavigationStack{
-                HomeView(isAvailableRecipes: $isAvailableRecipes,
-                         tagSelection: $tagSelection)
-            }
+			NavigationStack {
+				HomeView(isAvailableRecipes: $isAvailableRecipes,
+						 tagSelection: $tagSelection)
+			}
                 .tabItem {
                     Image(systemName: "refrigerator.fill")
                     Text("나의 냉장고")
                 }
                 .tag(0)
-                            
-            NavigationStack{
-                RecipeListView(recipeStore: recipeStore,
-                               isAvailableRecipes: $isAvailableRecipes)
-            }
+                
+			NavigationStack {
+				RecipeListView(recipeStore: recipeStore,
+							   isAvailableRecipes: $isAvailableRecipes)
+			}
                 .tabItem {
                     Image(systemName: "doc.text.image")
                     Text("레시피")
                 }
                 .tag(1)
-            
-//            .onAppear {
-//                Task {
-//                    let recipeNetwork = RecipeNetworkModel()
-//                    await recipeNetwork.parsing()
-//                    guard let data = recipeNetwork.allRecipeData else {
-//                        return
-//                    }
-//                    recipeStore.recipes2 = data.COOKRCP01.row
-//                    for index in 0..<recipeStore.recipes2.count{
-//                        recipeStore.recipes2[index].isBookmark = false
-//                    }
-//                }
-//            }
         }
     }
 }

@@ -91,7 +91,7 @@ struct RecipeListView: View {
                     } label: {
                         Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
                             .font(.title2)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color.accentColor)
                     })
                 }
            // }
@@ -119,7 +119,7 @@ struct ListCell: View {
 
                     if recipe.isBookmark ?? false {
                         Image(systemName: "bookmark.fill")
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color.accentColor)
                             .offset(x : 35, y : -35)
                             .overlay {
                             }
@@ -207,7 +207,6 @@ struct searchBar: View {
          */
     }
 }
-
 
 
 //struct RecipeListView_Previews: PreviewProvider {
