@@ -77,7 +77,8 @@ final class IngredientStore: ObservableObject {
     
     // 레시피에 있는 필요 재료 리스트를 내 보유 재료와 비교하여 모두 가지고 있는지 여부
     func isHaveAllNeedIngredients(needIngredientsName : [String]) -> Bool {
-        let myIngredients = getMyIngredients().map{$0.ingredient}
+        let myIngredients = ["검은콩","메밀면","오이","방울토마토","땅콩","잣","참깨"] // 검은메밀면 조리가능에 뜨는지 확인하는 더미 데이터
+//        let myIngredients = getMyIngredients().map{$0.ingredient} // 실제 코드
         return needIngredientsName.filter{name in
             return !myIngredients.contains(name)
         }.isEmpty

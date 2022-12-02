@@ -135,8 +135,6 @@ struct HomeView: View {
                     .tag(2)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                
-                
             }
             
             Spacer()

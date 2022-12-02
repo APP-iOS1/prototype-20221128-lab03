@@ -51,11 +51,12 @@ struct RecipeDetail: View {
                 Button {
                     selectedRecipe.isBookmark?.toggle()
                 } label: {
-                    if let isBookmark = selectedRecipe.isBookmark {
-                        Image(systemName: isBookmark ? "bookmark.fill" : "bookmark")
-                            .font(.largeTitle)
-                            .foregroundColor(.blue)
-                    }
+                    let isBookmark = selectedRecipe.isBookmark ?? false
+                    
+                    Image(systemName: isBookmark ? "bookmark.fill" : "bookmark")
+                        .font(.title2)
+                        .foregroundColor(Color.accentColor)
+                    
                 }
             }
             

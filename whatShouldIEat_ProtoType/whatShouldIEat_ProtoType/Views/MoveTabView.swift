@@ -17,7 +17,7 @@ struct MoveTabView: View {
         TabView(selection : $tagSelection) {
             NavigationStack{
 				HomeView(isAvailableRecipes: $isAvailableRecipes,
-                         tabSelection: $tagSelection)
+                         tagSelection: $tagSelection)
             }.tabItem {
                 Image(systemName: "refrigerator.fill")
                 Text("나의 냉장고")

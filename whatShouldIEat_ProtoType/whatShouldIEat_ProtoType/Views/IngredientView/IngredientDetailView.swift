@@ -109,6 +109,7 @@ struct IngredientDetailView: View {
                             .sheet(isPresented: $isDateOn) {
                                 DatePickerView(expDate: $expDate)
                                     .presentationDetents([.medium])
+                                    
                             }
                     }
 					.padding(.trailing, 20)
