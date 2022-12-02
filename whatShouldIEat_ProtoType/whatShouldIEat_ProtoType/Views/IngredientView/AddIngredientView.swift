@@ -7,6 +7,7 @@ struct AddIngredientView: View {
 	
 	@State private var isItemSelected = false
 	@State private var isModalPresented = false
+    @State private var isAddNewIngredientModalPresented = false
 
 	@State private var newIngredientArr = [NewIngredient]()
 	@State private var updatedNewIngredient = false
@@ -35,7 +36,8 @@ struct AddIngredientView: View {
 				ForEach(ingredientStore.ingredientCategoryList, id: \.self) { categoryKey in
 					// categoryKey == Header, DictionaryKey
 					IngredientViewBuilder(categoryKey: categoryKey,
-										  newIngredientArr: $newIngredientArr)
+										  newIngredientArr: $newIngredientArr,
+                                          isAddNewIngredientModalPresented: $isAddNewIngredientModalPresented)
 				}
 			}
 			// "추가하기" 버튼으로 뷰 이동
@@ -46,6 +48,7 @@ struct AddIngredientView: View {
 											 updatedNewIngredient: $updatedNewIngredient,
 											 newIngredientArr: $newIngredientArr)
 			}
+            
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
 					HStack{
@@ -76,10 +79,12 @@ struct AddIngredientView: View {
 
 struct IngredientViewBuilder: View {
 	let categoryKey: String
-	
+    
+    
 	// 각 헤더가 하나의 카운터를 갖는다.
 	@State var selectedItemCounter: Int = 0
 	@Binding var newIngredientArr: [NewIngredient]
+    @Binding var isAddNewIngredientModalPresented : Bool
 	
 	let gridSystem = [
 		//추가 하면 할수록 화면에 보여지는 개수가 변함
@@ -104,9 +109,27 @@ struct IngredientViewBuilder: View {
 									  foodDBArray: foodDBArray,
 									  selectedItemCounter: $selectedItemCounter,
 									  newIngredientArr: $newIngredientArr)
+                    
+
 				}
+                Button {
+                    isAddNewIngredientModalPresented.toggle()
+                } label: {
+                    Image(systemName: "plus.square")
+                        .font(.largeTitle)
+                        .fontWeight(.light)
+                        .foregroundColor(Color.accentColor)
+                        .offset(y:13)
+                }
 			}
+            .sheet(isPresented: $isAddNewIngredientModalPresented, content: {
+                AddNewIngredientDBView(category: categoryKey,
+                                       isAddNewIngredientModalPresented: $isAddNewIngredientModalPresented
+                )
+                .presentationDetents([.medium])
+            })
 		}
+        
 	}
 }
 
