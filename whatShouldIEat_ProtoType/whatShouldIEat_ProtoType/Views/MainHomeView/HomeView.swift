@@ -48,9 +48,24 @@ struct HomeView: View {
                         // 냉장실 재료가 있을 때, 없을 때 구분
                         if isMyRefrigerationIngredientEmpty {
                             VStack { // 냉장실에 재료가 없을 때
-                                Spacer()
-                                Text("냉장실이 텅 비어 있어요😭")
-                                Spacer()
+								Image("homeView_emptyFridge")
+									.resizable()
+									.frame(width: 200, height: 200)
+								
+                                Text("냉장고가 텅~ 비어 있어요!")
+									.foregroundColor(Color.accentColor)
+									.font(.title)
+									.bold()
+									.padding(.top, 25)
+									.padding(.bottom, 3)
+								
+								Text("우상단의 + 버튼을 눌러 재료를 추가해주세요.")
+									.font(.subheadline)
+									.bold()
+									.foregroundColor(Color(.systemGray2))
+								
+								Spacer()
+									.frame(height: 150)
                             }
                         } else {
                             ScrollView {
@@ -77,11 +92,26 @@ struct HomeView: View {
                     // tab2. 냉동실
                     VStack {
                         if isMyFrozenIngredientEmpty {
-                            VStack { // 냉장실에 재료가 없을 때
-                                Spacer()
-                                Text("냉동실이 텅 비어 있어요😭")
-                                Spacer()
-                            }
+							VStack { // 냉장실에 재료가 없을 때
+								Image("homeView_emptyFridge")
+									.resizable()
+									.frame(width: 200, height: 200)
+								
+								Text("냉동실이 텅~ 비어 있어요!")
+									.foregroundColor(Color.accentColor)
+									.font(.title)
+									.bold()
+									.padding(.top, 25)
+									.padding(.bottom, 3)
+								
+								Text("우상단의 + 버튼을 눌러 재료를 추가해주세요.")
+									.font(.subheadline)
+									.bold()
+									.foregroundColor(Color(.systemGray2))
+								
+								Spacer()
+									.frame(height: 150)
+							}
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
@@ -107,11 +137,26 @@ struct HomeView: View {
                     // tab3. 실온보관
                     VStack {
                         if isMyRoomTemperatureIngredientEmpty {
-                            VStack {
-                                Spacer()
-                                Text("실온 보관할 것이 없어요😭")
-                                Spacer()
-                            }
+							VStack { // 냉장실에 재료가 없을 때
+								Image("homeView_emptyFridge")
+									.resizable()
+									.frame(width: 200, height: 200)
+								
+								Text("실온보관할 재료가 없어요!")
+									.foregroundColor(Color.accentColor)
+									.font(.title)
+									.bold()
+									.padding(.top, 25)
+									.padding(.bottom, 3)
+								
+								Text("우상단의 + 버튼을 눌러 재료를 추가해주세요.")
+									.font(.subheadline)
+									.bold()
+									.foregroundColor(Color(.systemGray2))
+								
+								Spacer()
+									.frame(height: 150)
+							}
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
@@ -144,7 +189,9 @@ struct HomeView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("나의 냉장고")
-                    .font(.largeTitle)
+					.padding(.top, 7)
+                    .font(.title)
+					.bold()
                     .accessibilityAddTraits(.isHeader)
             }
         }
@@ -152,6 +199,7 @@ struct HomeView: View {
             AddIngredientView(ingredientStore: ingredientStore)
         } label: {
 			Image(systemName: "plus").foregroundColor(Color.accentColor)
+				.padding(.top, 7)
         })
     }
     private var goToAvailableRecipeView : some View {

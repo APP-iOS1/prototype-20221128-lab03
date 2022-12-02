@@ -71,18 +71,20 @@ struct RecipeListView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
-                            Text("레시피")
-                                .font(.largeTitle)
+                            Text("오늘 뭐 해먹지?")
+                                .font(.title)
+								.bold()
                                 .accessibilityAddTraits(.isHeader)
                         }
                     }
                     .navigationBarItems(leading : Button(action: {
                         isAvailableRecipes.toggle()
                     }, label: {
-                        Text(isAvailableRecipes ? "조리 가능" : "전체")
-                            .font(.title2)
+                        Text(isAvailableRecipes ? "조리가능" : "전체")
+							.padding(.vertical, 5)
+                            .font(.body)
                             .foregroundColor(.white)
-                            .frame(width : 100)
+                            .frame(width : 80)
                             .background(Color.accentColor)
                             .cornerRadius(10)
                     })
@@ -121,23 +123,22 @@ struct ListCell: View {
                         Image(systemName: "bookmark.fill")
                             .foregroundColor(Color.accentColor)
                             .offset(x : 35, y : -35)
-                            .overlay {
-                            }
                     }
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {
-                    
-                    HStack {
+					HStack {
                         Text(recipe.RCP_NM)
                             .font(.title2)
                             .fontWeight(.medium)
-                            .frame(width : 200,alignment: .leading)
-                        
-                        
+							.foregroundColor(.black)
+							.multilineTextAlignment(.leading)
+						Spacer()
                     }
                 }
+				.padding(.leading, 10)
             }
+			.padding(.leading, 15)
         }
     }
 }

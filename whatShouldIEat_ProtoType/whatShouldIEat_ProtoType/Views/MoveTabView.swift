@@ -32,7 +32,7 @@ struct MoveTabView: View {
 			}
                 .tabItem {
                     Image(systemName: "doc.text.image")
-                    Text("레시피")
+                    Text("오늘 뭐 해먹지?")
                 }
                 .tag(1)
         }
