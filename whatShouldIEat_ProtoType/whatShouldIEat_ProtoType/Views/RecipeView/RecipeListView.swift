@@ -17,6 +17,7 @@ import SwiftUI
 import Combine
 
 struct RecipeListView: View {
+    @EnvironmentObject var ingredientStore : IngredientStore
     @ObservedObject var recipeStore : RecipeStore
     @State private var searchString : String = ""
     @State private var isBookmarkOn : Bool = false
@@ -29,20 +30,39 @@ struct RecipeListView: View {
                         .padding()
                     ScrollView {
                         ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { $recipe in
-                            if (searchString == ""){
-                                ListCell(recipe: $recipe)
-                            }else if recipe.RCP_NM.contains(searchString){
-                                ListCell(recipe: $recipe)
+                            
+                            
+                            if searchString == "" {
+                                if isAvailableRecipes {
+                                    let parseIngredients = recipeStore.parseIngredients(recipe.RCP_PARTS_DTLS).map{$0.name}
+                                    
+                                    if ingredientStore.isHaveAllNeedIngredients(needIngredientsName: parseIngredients) {
+                                        ListCell(recipe: $recipe)
+                                    }
+                                } else if isBookmarkOn {
+                                    if recipe.isBookmark ?? false {
+                                        ListCell(recipe: $recipe)
+                                    }
+                                } else {
+                                    ListCell(recipe: $recipe)
+                                }
+                            } else if recipe.RCP_NM.contains(searchString) {
+                                if isAvailableRecipes {
+                                    let parseIngredients = recipeStore.parseIngredients(recipe.RCP_PARTS_DTLS).map{$0.name}
+                                    
+                                    if ingredientStore.isHaveAllNeedIngredients(needIngredientsName: parseIngredients) {
+                                        ListCell(recipe: $recipe)
+                                    }
+                                } else if isBookmarkOn {
+                                    if recipe.isBookmark ?? false {
+                                        ListCell(recipe: $recipe)
+                                    }
+                                } else {
+                                    ListCell(recipe: $recipe)
+                                }
                             }
-                            /*'
-                             if isBookmarkOn {
-                             if recipe.wrappedValue.isBookmark {
-                             ListCell(recipe: recipe)
-                             }
-                             } else {
-                             ListCell(recipe: recipe)
-                             }
-                             */
+                             
+                             
                         }
                     }
                     .listStyle(PlainListStyle())
