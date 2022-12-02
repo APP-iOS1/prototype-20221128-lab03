@@ -15,12 +15,20 @@ struct Ingredient : Codable, Identifiable, Hashable {
 	public var ishave: Bool
 	
 	// 각각의 감자를 따로 얼리도록 구현
-	public var isFrozen: Bool = false
+
+    public var saveWhere : SaveWhere
+
 	
 	public var buyDate: Date?
 	public var expiredDate: Date?
 	public var addCounter: String?
 	public var ingredientUnit: IngredientUnit?
+    
+    enum SaveWhere : String, Codable {
+        case refrigeration = "냉장"
+        case frozen = "냉동"
+        case roomTemperature = "실온"
+    }
 }
 
 struct NewIngredient: Identifiable {
@@ -38,6 +46,22 @@ enum IngredientUnit: String, Identifiable, CaseIterable, Codable {
 	var id: Self { self }
 }
 
+
+let categoryImageDB : [String : String] = [
+    "채소/과일" : "vegetable",
+    "버섯류" : "mushroom",
+    "육류/달걀" : "meat",
+    "콩류/견과류/두부류" : "beans",
+    "유제품" : "dairy",
+    "김치" : "kimchi",
+    "가루류" : "powder",
+    "조미료/양념류/오일류" : "condiments",
+    "민물/해산물" : "seafood",
+    "음료류" : "beverage",
+    "면류" : "noodle",
+    "곡물/가공류" : "grain",
+    "기타" : "guitar"
+]
 
 // 각 음식 데이터를 DB화 해서 앱 시동시 foodDB를 초기화
 var foodDb = [String: [String]]()
