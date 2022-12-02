@@ -9,7 +9,7 @@
 ---
 
 ## 👻 참여자
-|  📎원태영<br/>[@wontaeyoung](https://github.com/wontaeyoung)<br/> "난 신이다. 🕍" | 📎이승준<br/>[@Valselee](https://github.com/valselee)<br/> "나 곧 넘어진다 🤦🏻‍♂️" | 📎이다혜<br/> [@dahae0320](https://github.com/dahae0320)<br/> "모닝커피는 국룰 ☕️" | 
+|  📎원태영<br/>[@wontaeyoung](https://github.com/wontaeyoung)<br/> "난 신이다. 🕍" | 📎이승준<br/>[@Valselee](https://github.com/valselee)<br/> "승준버스 출발합니디ㅏ 🤦🏻‍♂️" | 📎이다혜<br/> [@dahae0320](https://github.com/dahae0320)<br/> "모닝커피는 국룰 ☕️" | 
 | :----------------------------------------------------------: | :---------------------------------------------: | :-------------------------------------------------: |
 |<img src="https://avatars.githubusercontent.com/u/45925685?v=4" width=200> | <img src="https://avatars.githubusercontent.com/u/82270058?v=4" width=200>  | <img src="https://avatars.githubusercontent.com/u/50159740?v=4" width=200> |
 
