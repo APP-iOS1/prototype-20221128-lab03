@@ -30,8 +30,9 @@ struct RecipeListView: View {
                         .padding()
                     ScrollView {
                         ForEach($recipeStore.recipes2, id: \.RCP_PARTS_DTLS) { $recipe in
-                            
-                            
+//                            if recipe.isBookmark == nil{
+//                                recipe.isBookmark = false
+//                            }
                             if searchString == "" {
                                 if isAvailableRecipes {
                                     let parseIngredients = recipeStore.parseIngredients(recipe.RCP_PARTS_DTLS).map{$0.name}
