@@ -109,7 +109,7 @@ struct IngredientDetailView: View {
                             .sheet(isPresented: $isDateOn) {
                                 DatePickerView(expDate: $expDate)
                                     .presentationDetents([.medium])
-                                    
+                                
                             }
                     }
 					.padding(.trailing, 20)
@@ -182,7 +182,7 @@ struct DatePickerView : View {
     
     var body: some View {
         DatePicker("날짜를 선택하세요", selection: $expDate, in: Date()..., displayedComponents: .date)
-            .datePickerStyle(.wheel)
+            .datePickerStyle(GraphicalDatePickerStyle())
             .labelsHidden()
             .environment(\.locale, Locale.init(identifier: "ko"))
     }
