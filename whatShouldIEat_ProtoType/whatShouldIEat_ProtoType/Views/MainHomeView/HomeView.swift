@@ -5,6 +5,8 @@ struct HomeView: View {
     @State private var isAvailableView: Bool = false
     @State private var isAddViewShow: Bool = false
     @State private var selectedIndex: Int = 0
+    @Binding var isAvailableRecipes : Bool
+    @Binding var tagSelection : Int
     let pickerLabelList: [String] = ["냉장실", "냉동실", "실온 보관"]
     
     let columns = [
@@ -16,9 +18,17 @@ struct HomeView: View {
     ]
     
     var body: some View {
-//      let ingredientCount = ingredientStore.ingredients.filter { $0.ishave }.count
-        let isMyIngredientEmpty = ingredientStore.ingredientsDictionary.isEmpty
-//		let isMyFrozonIngredientEmpty = ingredientStore.ingredientsDictionary.values.filter { $0. }
+        
+        // 재료 배열을 돌면서 냉장, 냉동, 실온 상태의 재료들의 갯수를 체크하여 비어있는지 여부를 반환
+        let isMyRefrigerationIngredientEmpty = ingredientStore.ingredientsDictionary.map{ingredients in
+            ingredients.value.filter{$0.saveWhere == .refrigeration}.count
+        }.reduce(0,+) == 0
+        let isMyFrozenIngredientEmpty = ingredientStore.ingredientsDictionary.map{ingredients in
+            ingredients.value.filter{$0.saveWhere == .frozen}.count
+        }.reduce(0,+) == 0
+        let isMyRoomTemperatureIngredientEmpty = ingredientStore.ingredientsDictionary.map{ingredients in
+            ingredients.value.filter{$0.saveWhere == .roomTemperature}.count
+        }.reduce(0,+) == 0
         
         VStack {
             VStack(alignment: .leading) { // isHave ==  true인 재료가 보여짐
@@ -35,13 +45,8 @@ struct HomeView: View {
                     /// 그래서 TabItem을 Group에 설정하면 원하는대로 안될 수 있다.
                     // tab1. 냉장실
                     VStack {
-//                        Text("냉장실")
-//                            .font(.title)
-//                            .fontWeight(.semibold)
-//                            .frame(width: 350, height: 50, alignment: .leading)
-                        
                         // 냉장실 재료가 있을 때, 없을 때 구분
-                        if isMyIngredientEmpty {
+                        if isMyRefrigerationIngredientEmpty {
                             VStack { // 냉장실에 재료가 없을 때
                                 Spacer()
                                 Text("냉장실이 텅 비어 있어요😭")
@@ -50,25 +55,18 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-                                    //
                                     ForEach(Array(ingredientStore.ingredientsDictionary.keys), id: \.self) { eachIngredient in
-//                                        let key = eachIngredient
                                         if let myIngredient = ingredientStore.ingredientsDictionary[eachIngredient] {
                                             ForEach(myIngredient, id: \.self) { str in
-                                                // IngredientCell
-                                                IngredientCell(ingredient: str)
+                                                if str.saveWhere == .refrigeration {
+                                                    IngredientCell(ingredient: str)
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                            Text("냉장고 털러가기")
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .frame(width: 150, height: 40)
-                                .background(Color.blue)
-                                .cornerRadius(20)
-                                .onTapGesture { isAvailableView = true }
+                            goToAvailableRecipeView
                         }
                     }
                     .tabItem {
@@ -78,14 +76,7 @@ struct HomeView: View {
                     
                     // tab2. 냉동실
                     VStack {
-//                        Text("냉동실")
-//                            .font(.title)
-//                            .fontWeight(.semibold)
-//                            .frame(width: 350, height: 50, alignment: .leading)
-                        
-                        let frozenIngredientCount = ingredientStore.ingredients.filter { $0.isFrozen }.count
-                        
-                        if frozenIngredientCount == 0 {
+                        if isMyFrozenIngredientEmpty {
                             VStack { // 냉장실에 재료가 없을 때
                                 Spacer()
                                 Text("냉동실이 텅 비어 있어요😭")
@@ -94,20 +85,18 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-//                                    ForEach($ingredientStore.ingredients) { ingredient in
-//                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
-//                                            IngredientCell(ingredient: ingredient)
-//                                        }
-//                                    }
+                                    ForEach(Array(ingredientStore.ingredientsDictionary.keys), id: \.self) { eachIngredient in
+                                        if let myIngredient = ingredientStore.ingredientsDictionary[eachIngredient] {
+                                            ForEach(myIngredient, id: \.self) { str in
+                                                if str.saveWhere == .frozen {
+                                                    IngredientCell(ingredient: str)
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
-                                Text("냉장고 털러가기")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .frame(width: 150, height: 40)
-                                    .background(Color.blue)
-                                    .cornerRadius(20)
-                                    .onTapGesture { isAvailableView = true }
                             }
+                            goToAvailableRecipeView
                         }
                     }
                     .tabItem {
@@ -117,14 +106,7 @@ struct HomeView: View {
                     
                     // tab3. 실온보관
                     VStack {
-//                        Text("실온 보관")
-//                            .font(.title)
-//                            .fontWeight(.semibold)
-//                            .frame(width: 350, height: 50, alignment: .leading)
-                        
-                        // FIXME: 실온 보관 카테고리 미완성 (실온 보관 재료들에 대한 데이터 없음)
-                        /// 구조만 만들어둠. 추후에 true 자리에 (실온보관재료).isEmpty로 변경해주어야 한다.
-                        if true {
+                        if isMyRoomTemperatureIngredientEmpty {
                             VStack {
                                 Spacer()
                                 Text("실온 보관할 것이 없어요😭")
@@ -133,20 +115,18 @@ struct HomeView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns) {
-//                                    ForEach($ingredientStore.ingredients) { ingredient in
-//                                        if ingredient.wrappedValue.ishave && ingredient.wrappedValue.isFrozen {
-//                                            IngredientCell(ingredient: ingredient)
-//                                        }
-//                                    }
+                                    ForEach(Array(ingredientStore.ingredientsDictionary.keys), id: \.self) { eachIngredient in
+                                        if let myIngredient = ingredientStore.ingredientsDictionary[eachIngredient] {
+                                            ForEach(myIngredient, id: \.self) { str in
+                                                if str.saveWhere == .roomTemperature {
+                                                    IngredientCell(ingredient: str)
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
-                                Text("냉장고 털러가기")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .frame(width: 150, height: 40)
-                                    .background(Color.blue)
-                                    .cornerRadius(20)
-                                    .onTapGesture { isAvailableView = true }
                             }
+                            goToAvailableRecipeView
                         }
                     }
                     .tabItem {
@@ -156,9 +136,9 @@ struct HomeView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 
-                    
+                
             }
-    
+            
             Spacer()
         }
         // main Vstack
@@ -176,7 +156,19 @@ struct HomeView: View {
             Image(systemName: "plus").foregroundColor(.blue)
         })
     }
-}// body
+    private var goToAvailableRecipeView : some View {
+        Text("냉장고 털러가기")
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .frame(width: 150, height: 40)
+            .background(Color.blue)
+            .cornerRadius(20)
+            .onTapGesture {
+                isAvailableRecipes = true
+                tagSelection = 1
+            }
+    }
+}
 
 
 struct IngredientCell: View {
@@ -189,13 +181,12 @@ struct IngredientCell: View {
             isShowing.toggle()
         } label: {
             VStack(spacing: 10) {
-                Image(systemName: ingredient.icon)
+                Image(ingredient.icon)
                     .resizable()
                     .frame(width: 30, height: 30)
                 Text(ingredient.ingredient)
                     .foregroundColor(.black)
-//                    .fontWeight(.semibold)
-                Text("150g")
+                Text("\(ingredient.addCounter!) \(ingredient.ingredientUnit!.rawValue)")
                     .font(.subheadline)
             }
         }
@@ -209,8 +200,8 @@ struct IngredientCell: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}
