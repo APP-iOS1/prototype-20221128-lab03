@@ -24,7 +24,7 @@ struct RecipeListView: View {
     @Binding var isAvailableRecipes : Bool
     
     var body: some View {
-            NavigationStack {
+            //NavigationStack {
                 VStack {
                     searchBar(text: $searchString)
                         .padding()
@@ -93,7 +93,7 @@ struct RecipeListView: View {
                             .foregroundColor(.blue)
                     })
                 }
-            }
+           // }
             .onTapGesture{
                 hideKeyboard()
             }
@@ -104,7 +104,7 @@ struct ListCell: View {
     @Binding var recipe: EachRecipeDetail
     
     var body: some View {
-        NavigationLink(destination: RecipeDetail(selectedRecipe: $recipe)) {
+         NavigationLink(destination: RecipeDetail(selectedRecipe: $recipe)) {
             HStack {
                 ZStack {
                     AsyncImage(url: URL(string: recipe.ATT_FILE_NO_MK)) { image in
