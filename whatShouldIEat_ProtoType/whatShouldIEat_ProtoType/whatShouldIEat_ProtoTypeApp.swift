@@ -14,9 +14,7 @@ struct whatShouldIEat_ProtoTypeApp: App {
         WindowGroup {
 			// FoodDB 초기화
 			let _ = initFoodDB()
-
-            ContentView()
-				.environmentObject(IngredientStore())
+            LodingView()
         }
     }
 }
