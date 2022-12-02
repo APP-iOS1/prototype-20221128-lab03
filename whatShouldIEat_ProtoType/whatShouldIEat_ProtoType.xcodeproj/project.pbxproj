@@ -14,6 +14,7 @@
 		630DD2A8291A4096007428A6 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DD2A7291A4096007428A6 /* Ingredient.swift */; };
 		630DD2AA291A411D007428A6 /* IngredientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DD2A9291A411D007428A6 /* IngredientData.swift */; };
 		630DD2B6291AB98F007428A6 /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = 630DD2B5291AB98F007428A6 /* .gitattributes */; };
+		6E17B5D72939BFCC00CA86C9 /* AddNewIngredientDBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E17B5D62939BFCC00CA86C9 /* AddNewIngredientDBView.swift */; };
 		6E18B8DF293713620051E682 /* RecipeDetailPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18B8DE293713620051E682 /* RecipeDetailPageView.swift */; };
 		6E473534291A9C13001166DD /* ingredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E473533291A9C13001166DD /* ingredientData.json */; };
 		6E47353B291A9C3F001166DD /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E473536291A9C3F001166DD /* RecipeDetail.swift */; };
@@ -49,6 +50,7 @@
 		630DD2A9291A411D007428A6 /* IngredientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientData.swift; sourceTree = "<group>"; };
 		630DD2B5291AB98F007428A6 /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		688A843D2935ADD900FF4596 /* whatShouldIEat-ProtoType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "whatShouldIEat-ProtoType-Info.plist"; sourceTree = SOURCE_ROOT; };
+		6E17B5D62939BFCC00CA86C9 /* AddNewIngredientDBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewIngredientDBView.swift; sourceTree = "<group>"; };
 		6E18B8DE293713620051E682 /* RecipeDetailPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailPageView.swift; sourceTree = "<group>"; };
 		6E473533291A9C13001166DD /* ingredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ingredientData.json; sourceTree = "<group>"; };
 		6E473536291A9C3F001166DD /* RecipeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
@@ -211,6 +213,8 @@
 				7061CCC12937216300ED391F /* AddIngredientDetailModalView.swift */,
 				70EBBB702939B8BC00932FF5 /* AddIngredientComponent */,
 				2C9D6FC52938807C001808BB /* ReciptModalView.swift */,
+				2C9D6FC52938807C001808BB /* ReciptModalView.swift */,
+				6E17B5D62939BFCC00CA86C9 /* AddNewIngredientDBView.swift */,
 			);
 			path = IngredientView;
 			sourceTree = "<group>";
@@ -330,6 +334,7 @@
 				6EE0C66F291B473A00314E01 /* AvailableRecipeView.swift in Sources */,
 				6EAEFA2F291B660C00C96D45 /* RecipeData.swift in Sources */,
 				7061CCC22937216300ED391F /* AddIngredientDetailModalView.swift in Sources */,
+				6E17B5D72939BFCC00CA86C9 /* AddNewIngredientDBView.swift in Sources */,
 				6E47353C291A9C3F001166DD /* MoveTabView.swift in Sources */,
 				6ECD54292938847600360865 /* RecipePageTabView.swift in Sources */,
 			);
@@ -466,7 +471,6 @@
 				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -497,7 +501,6 @@
 				INFOPLIST_FILE = "whatShouldIEat-ProtoType-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

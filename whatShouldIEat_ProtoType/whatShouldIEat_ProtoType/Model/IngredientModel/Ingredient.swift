@@ -54,7 +54,7 @@ let categoryImageDB : [String : String] = [
     "유제품" : "dairy",
     "김치" : "kimchi",
     "가루류" : "powder",
-    "조미료/양념류/오일류" : "condiments",
+    "조미료/양념류/오일류" : "condiment",
     "민물/해산물" : "seafood",
     "음료류" : "beverage",
     "면류" : "noodle",

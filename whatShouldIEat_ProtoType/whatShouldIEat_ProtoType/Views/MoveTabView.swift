@@ -10,22 +10,43 @@ import SwiftUI
 struct MoveTabView: View {
 	@EnvironmentObject var ingredientManager: IngredientStore
 	@ObservedObject var recipeStore = RecipeStore()
-    
-    var body: some View {
-        TabView {
-            NavigationStack{
-				HomeView()
-            }.tabItem {
-                Image(systemName: "refrigerator.fill")
-                Text("나의 냉장고")
-            }
+    @State var tagSelection : Int = 0
+    @State var isAvailableRecipes : Bool = false
 
-            RecipeListView(recipeStore: recipeStore)
+    var body: some View {
+        
+        TabView(selection : $tagSelection) {
+			NavigationStack {
+				HomeView(isAvailableRecipes: $isAvailableRecipes,
+						 tagSelection: $tagSelection)
+			}
                 .tabItem {
-                Image(systemName: "doc.text.image")
-                Text("레시피")
+                    Image(systemName: "refrigerator.fill")
+                    Text("나의 냉장고")
+                }
+                .tag(0)
+                
+			NavigationStack {
+				RecipeListView(recipeStore: recipeStore,
+							   isAvailableRecipes: $isAvailableRecipes)
+			}
+                .tabItem {
+                    Image(systemName: "doc.text.image")
+                    Text("레시피")
+                }
+                .tag(1)
             }
-        }
+            .onAppear {
+                Task {
+                    let recipeNetwork = RecipeNetworkModel()
+                    await recipeNetwork.parsing()
+                    guard let data = recipeNetwork.allRecipeData else {
+                        return
+                    }
+                    recipeStore.recipes2 = data.COOKRCP01.row
+                }
+            }
+        
         .onAppear {
             Task {
                 var recipeNetwork = RecipeNetworkModel()

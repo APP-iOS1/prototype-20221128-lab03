@@ -62,7 +62,6 @@ struct AddIngredientDetailModalView: View {
 		}
 	}
 	
-	
 	private func updateNewIngredient() {
 		for newIngredient in newUsersIngredientPicks {
 			guard let name = newIngredient.name,

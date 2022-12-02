@@ -135,8 +135,6 @@ struct HomeView: View {
                     .tag(2)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                
-                
             }
             
             Spacer()
@@ -153,7 +151,7 @@ struct HomeView: View {
         .navigationBarItems(trailing: NavigationLink {
             AddIngredientView(ingredientStore: ingredientStore)
         } label: {
-            Image(systemName: "plus").foregroundColor(.blue)
+			Image(systemName: "plus").foregroundColor(Color.accentColor)
         })
     }
     private var goToAvailableRecipeView : some View {
@@ -161,7 +159,7 @@ struct HomeView: View {
             .fontWeight(.bold)
             .foregroundColor(.white)
             .frame(width: 150, height: 40)
-            .background(Color.blue)
+            .background(Color.accentColor)
             .cornerRadius(20)
             .onTapGesture {
                 isAvailableRecipes = true
@@ -192,6 +190,7 @@ struct IngredientCell: View {
         }
         .sheet(isPresented: $isShowing) {
             IngredientDetailView(
+                expDate: ingredient.expiredDate ?? Date(),
                 isShowing: $isShowing,
                 ingredient: $ingredient
             )

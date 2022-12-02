@@ -27,41 +27,24 @@ struct ReciptModalView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 250)
                     }
-                    
-                    Button {
-                        //                    if selectedImage != nil{
-                        //                        isImage.toggle()
-                        //                    }
-                    } label: {
-                        Image(systemName: "camera")
-                        Text("영수증 촬영하기")
-                    }
-                    .bold()
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 45)
-                    .background(Color(red: 0.997, green: 0.681, blue: 0.0))
-                    .cornerRadius(30)
-                    .padding()
-                    
+                    Spacer()
+                                        
                     Button {
                         self.imagePickerVisible.toggle()
-                        //                    if selectedImage != nil{
-                        //                        isImage.toggle()
-                        //                    }
                     } label: {
                         HStack {
                             Image(systemName: "photo.on.rectangle.angled")
-                            Text("사진으로 첨부하기")
+                            Text((selectedImage != nil) ? "다시 첨부하기" : "사진으로 첨부하기")
                         }
-                        .foregroundColor(.black)
-                        .padding()
+                        .frame(width: 300, height: 45)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke(.black, lineWidth: 1.8)
-                                .frame(width: 300, height: 45)
                         )
+                        .foregroundColor(.black)
+                        .padding()
                     }
-                    Spacer()
+                    .padding()
                     if selectedImage != nil{
                         VStack{
                             HStack{

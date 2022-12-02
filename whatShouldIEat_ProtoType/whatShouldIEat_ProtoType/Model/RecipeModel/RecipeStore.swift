@@ -17,7 +17,7 @@ class RecipeStore: ObservableObject {
     }
     
     
-    func parseIngredients(_ ingredeints : String) -> [(String, String)] {
+    func parseIngredients(_ ingredeints : String) -> [(name : String, yang : String)] {
 
         let string = ingredeints
             .replacingOccurrences(of: "\n", with: "")
