@@ -1,5 +1,5 @@
 //
-//  RecipeListView2.swift
+//  RecipeListView.swift
 //  whatShouldIEat_ProtoType
 //
 //  Created by 원태영 on 2022/11/09.
@@ -20,6 +20,7 @@ struct RecipeListView: View {
     @ObservedObject var recipeStore : RecipeStore
     @State private var searchString : String = ""
     @State private var isBookmarkOn : Bool = false
+    @Binding var isAvailableRecipes : Bool
     
     var body: some View {
             NavigationStack {
@@ -54,11 +55,21 @@ struct RecipeListView: View {
                                 .accessibilityAddTraits(.isHeader)
                         }
                     }
-                    .navigationBarItems(trailing : Button {
+                    .navigationBarItems(leading : Button(action: {
+                        isAvailableRecipes.toggle()
+                    }, label: {
+                        Text(isAvailableRecipes ? "조리 가능" : "전체")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .frame(width : 100)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                    })
+                    ,trailing : Button {
                         isBookmarkOn.toggle()
                     } label: {
                         Image(systemName: isBookmarkOn ? "bookmark.fill" : "bookmark")
-                            .font(.title)
+                            .font(.title2)
                             .foregroundColor(.blue)
                     })
                 }
@@ -69,15 +80,6 @@ struct RecipeListView: View {
     }
 }
         
-        
-        
-        
-        
-        
-    
-
-
-
 struct ListCell: View {
     @Binding var recipe: EachRecipeDetail
     
@@ -113,37 +115,7 @@ struct ListCell: View {
                         
                         
                     }
-                    //                    IconCell(recipe: recipe)
                 }
-            }
-        }
-    }
-}
-
-struct IconCell : View {
-    @EnvironmentObject var ingredientStore: IngredientStore
-    
-    let recipe: Recipe
-    
-    var needIngredients: [String] {
-        recipe.ingredients.count > 5 ? Array(recipe.ingredients[0...4]) :
-        recipe.ingredients
-    }
-    
-    var body: some View {
-        let ingredients = ingredientStore.ingredients
-        
-        // 기본 재료 JSON을 파싱하고, 그 파싱 데이터의 아이콘 이름으로 이미지 구성
-        HStack {
-            ForEach(needIngredients, id: \.self) { item in
-                let icon: String = ingredients.filter {
-                    $0.ingredient == item
-                }.first?.icon ?? ""
-                
-                Image(icon)
-                    .resizable()
-                    .frame(width:20,
-                           height:20)
             }
         }
     }
@@ -217,9 +189,9 @@ struct searchBar: View {
 
 
 
-struct RecipeListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeListView(recipeStore: RecipeStore())
-    }
-}
+//struct RecipeListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeListView(recipeStore: RecipeStore())
+//    }
+//}
 
